@@ -36,7 +36,6 @@ Begin VB.Form frmAlarms
       MultiLine       =   -1  'True
       ScrollBars      =   2  'Vertical
       TabIndex        =   0
-      Text            =   "frmAlarms.frx":0000
       Top             =   0
       Width           =   11535
    End
@@ -46,3 +45,6 @@ Attribute VB_GlobalNameSpace = False
 Attribute VB_Creatable = False
 Attribute VB_PredeclaredId = True
 Attribute VB_Exposed = False
+Private Sub btnClean_Click()
+    txtAlarms.text = ""
+End Sub
