@@ -466,15 +466,7 @@ Private Sub btnOutputs_Click(Index As Integer)
 End Sub
 
 Private Sub btnPrintTest_Click()
-    Dim maker As ZPLMaker
-    Set maker = New ZPLMaker
-    
-    maker.Begin
-    maker.SetOrigin 50, 50
-    maker.SetFontSize 30, 7
-    maker.BarCodeConfig 80, "Y", "Y", "N"
-    maker.PutText "PART>147896325"
-    maker.Terminate
+    PrintZebra "PART>147896325"
 End Sub
 
 Private Sub btnUnClampBoard_Click()

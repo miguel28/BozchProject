@@ -78,6 +78,14 @@ Begin VB.Form frmMain
       _Version        =   393216
       DTREnable       =   -1  'True
    End
+   Begin VB.Label lblPartNumber 
+      Caption         =   "Numero de Parte:"
+      Height          =   375
+      Left            =   240
+      TabIndex        =   4
+      Top             =   2280
+      Width           =   3375
+   End
    Begin VB.Label lblOperatorMsg 
       Alignment       =   2  'Center
       Caption         =   "Mensaje para el Operador"
@@ -103,7 +111,6 @@ Attribute VB_Creatable = False
 Attribute VB_PredeclaredId = True
 Attribute VB_Exposed = False
 Option Explicit
-
 '==========================
 'Global Variables
 '==========================
@@ -113,7 +120,6 @@ Option Explicit
 'Controls Events
 '==========================
 Private Sub Form_Initialize()
-    StepNumber = 1
     ConfigureControls
     'OpenPorts
 End Sub
@@ -141,6 +147,8 @@ Private Sub btnMantenaince_Click()
     Dim pass As String
     pass = InputBox("Escriba la contrasena de Mantenimiento")
     If pass = "pass" Then
+        StepNumber = 0
+        tmrStateMachineUpdate.Enabled = False
         Me.Hide
         frmMantenaince.Show
     End If
@@ -162,7 +170,9 @@ End Sub
 '==========================
 'Port Receiver Events
 '==========================
-
+Private Sub comScanner_OnComm()
+    ScannerAvailable = True
+End Sub
 
 '==========================
 'Local Defined Functions.

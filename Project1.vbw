@@ -1,3 +1,14 @@
-frmMain = 75, 75, 970, 526, , 6, 5, 885, 440, C
+frmMain = 328, 201, 1064, 652, C, 11, 5, 867, 479, C
 ADESerialPort = 156, 121, 1035, 575, C
-PortConfiguration = 204, 205, 1083, 640, 
+PortConfiguration = 204, 205, 1083, 640, C
+ZPLMaker = 123, 119, 1002, 554, C
+frmExample = 125, 125, 1004, 560, C, 132, 133, 819, 568, C
+SockConfiguration = 261, 50, 1037, 485, C
+IOPort = 110, 133, 1005, 584, C
+frmPortEmulator = -4, 205, 891, 656, C, 663, 0, 1079, 585, C
+BitOperations = 17, 113, 912, 564, C
+Globals = 369, 0, 1067, 451, C
+frmMantenaince = 239, 18, 815, 469, , 0, 0, 558, 540, C
+frmAlarms = 175, 175, 1043, 626, C, 25, 25, 920, 476, C
+CognexNativeCmd = 100, 139, 995, 590, C
+StateMachine = 49, 84, 917, 535, 

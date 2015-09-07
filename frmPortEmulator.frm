@@ -271,6 +271,10 @@ Private Sub btnInputs_Click(Index As Integer)
     End If
 End Sub
 
+Private Sub btnSendScanner_Click()
+    ScannerAvailable = True
+End Sub
+
 Private Sub tmrUpdateIO_Timer()
     Dim i As Integer
     
