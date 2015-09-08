@@ -478,6 +478,7 @@ End Sub
 
 Private Sub Form_Unload(Cancel As Integer)
     frmMain.Show
+    StartStateMachine
 End Sub
 
 Private Sub tmrUpdateIO_Timer()

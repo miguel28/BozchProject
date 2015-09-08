@@ -3,12 +3,11 @@ Option Explicit
 '==========================
 'Global Variables
 '==========================
+Public machine As MachineClass
 Public IOPortCom As IOPort
 Public UseEmulator As Boolean
-Public Declare Sub Sleep Lib "kernel32" (ByVal dwMilliseconds As Long)
-
-
 Public ScannerAvailable As Boolean
+
 '==========================
 'Application Variables
 '==========================
@@ -21,11 +20,22 @@ Public Function AddAlarmMessage(msg As String)
     frmAlarms.txtAlarms.text = frmAlarms.txtAlarms.text & msg & vbCrLf
 End Function
 
+Public Function InitializeProgram()
+    Set machine = New MachineClass
+    
+    'Config IO Port
+    Set IOPortCom = New IOPort
+    UseEmulator = True
+    
+    If UseEmulator = True Then frmPortEmulator.Show
+End Function
+
+
 Public Function ReadFromScanner() As String
     If UseEmulator = True Then
         ReadFromScanner = frmPortEmulator.txtScanner.text
     Else
-        ReadFromScanner = frmMain.comScanner.Input
+        'ReadFromScanner = frmMain.comScanner.Input
     End If
     ScannerAvailable = False
 End Function
@@ -44,6 +54,6 @@ Public Function PrintZebra(Datos As String)
     If UseEmulator = True Then
         frmPortEmulator.txtZPL.text = frmPortEmulator.txtZPL.text & maker.Code & vbCrLf
     Else
-        frmMain.comZebra.Output = maker.Code
+        machine.comZebra.Output = maker.Code
     End If
 End Function

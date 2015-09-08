@@ -1,9 +1,29 @@
 Attribute VB_Name = "StateMachine"
-Public StepNumber As Integer
-'Step 1: Espera Parte En el sensor
-'Step 2: Espera Escaner Parte
+Private TimerHandler As Long
+Private StepNumber As Integer
 
-Public Function UpdateStateMachine()
+Public Function StartStateMachine()
+    'Reset the State Machine to Step 0
+    StepNumber = 0
+    
+    'To start the timer:
+    TimerHandler = SetTimer(0, 0, 20, AddressOf TimerProc)
+End Function
+
+Public Function StopStateMachine()
+    'To stop the timer:
+    KillTimer 0, TimerHandler
+End Function
+
+Private Sub TimerProc(ByVal hwnd As Long, _
+                      ByVal lMsg As Long, _
+                      ByVal lTimerID As Long, _
+                      ByVal lTimer As Long)
+    UpdateStateMachine
+End Sub
+
+
+Private Function UpdateStateMachine()
     Select Case StepNumber
         Case 0
             frmMain.lblOperatorMsg.Caption = "Inicializando"
@@ -35,7 +55,7 @@ Public Function UpdateStateMachine()
         Case 3
             frmMain.lblOperatorMsg.Caption = "Escanee the numero de parte"
             If ScannerAvailable = True Then
-                Sleep 100
+                Sleep 200
                 PartNumber = ReadFromScanner
                 frmMain.lblPartNumber.Caption = "Numero de Parte " & PartNumber
                 StepNumber = 4

@@ -1,5 +1,4 @@
 VERSION 5.00
-Object = "{648A5603-2C6E-101B-82B6-000000000014}#1.1#0"; "MSCOMM32.OCX"
 Object = "{248DD890-BB45-11CF-9ABC-0080C7E7B78D}#1.0#0"; "MSWINSCK.OCX"
 Begin VB.Form frmMain 
    Caption         =   "BOSCH Project"
@@ -14,7 +13,7 @@ Begin VB.Form frmMain
       Caption         =   "Alarmas"
       Height          =   495
       Left            =   8160
-      TabIndex        =   2
+      TabIndex        =   1
       Top             =   4200
       Width           =   1455
    End
@@ -22,67 +21,22 @@ Begin VB.Form frmMain
       Caption         =   "Mantenimiento"
       Height          =   495
       Left            =   9720
-      TabIndex        =   1
+      TabIndex        =   0
       Top             =   4200
       Width           =   1575
    End
-   Begin VB.CommandButton btnOpenExample 
-      Caption         =   "Zebra Example"
-      Height          =   495
-      Left            =   3600
-      TabIndex        =   0
-      Top             =   4200
-      Width           =   1215
-   End
-   Begin VB.Timer tmrStateMachineUpdate 
-      Interval        =   10
-      Left            =   3120
-      Top             =   4080
-   End
    Begin MSWinsockLib.Winsock sockMES 
-      Left            =   2640
-      Top             =   4080
+      Left            =   120
+      Top             =   4560
       _ExtentX        =   741
       _ExtentY        =   741
       _Version        =   393216
-   End
-   Begin MSCommLib.MSComm comHandScanner 
-      Left            =   2040
-      Top             =   4080
-      _ExtentX        =   1005
-      _ExtentY        =   1005
-      _Version        =   393216
-      DTREnable       =   -1  'True
-   End
-   Begin MSCommLib.MSComm comCognex 
-      Left            =   1440
-      Top             =   4080
-      _ExtentX        =   1005
-      _ExtentY        =   1005
-      _Version        =   393216
-      DTREnable       =   -1  'True
-   End
-   Begin MSCommLib.MSComm comScanner 
-      Left            =   840
-      Top             =   4080
-      _ExtentX        =   1005
-      _ExtentY        =   1005
-      _Version        =   393216
-      DTREnable       =   -1  'True
-   End
-   Begin MSCommLib.MSComm comZebra 
-      Left            =   240
-      Top             =   4080
-      _ExtentX        =   1005
-      _ExtentY        =   1005
-      _Version        =   393216
-      DTREnable       =   -1  'True
    End
    Begin VB.Label lblPartNumber 
       Caption         =   "Numero de Parte:"
       Height          =   375
       Left            =   240
-      TabIndex        =   4
+      TabIndex        =   3
       Top             =   2280
       Width           =   3375
    End
@@ -100,7 +54,7 @@ Begin VB.Form frmMain
       EndProperty
       Height          =   1695
       Left            =   1320
-      TabIndex        =   3
+      TabIndex        =   2
       Top             =   240
       Width           =   8895
    End
@@ -120,8 +74,8 @@ Option Explicit
 'Controls Events
 '==========================
 Private Sub Form_Initialize()
-    ConfigureControls
-    'OpenPorts
+    InitializeProgram
+    StartStateMachine
 End Sub
 
 Private Sub Form_Resize()
@@ -139,23 +93,21 @@ Private Sub Form_Resize()
 End Sub
 
 Private Sub Form_Unload(Cancel As Integer)
+    Unload Me
+    StopStateMachine
     Unload frmPortEmulator
     Unload frmAlarms
+    End
 End Sub
 
 Private Sub btnMantenaince_Click()
     Dim pass As String
     pass = InputBox("Escriba la contrasena de Mantenimiento")
     If pass = "pass" Then
-        StepNumber = 0
-        tmrStateMachineUpdate.Enabled = False
+        StopStateMachine
         Me.Hide
         frmMantenaince.Show
     End If
-End Sub
-
-Private Sub btnOpenExample_Click()
-    frmExample.Show
 End Sub
 
 Private Sub btnAlarms_Click()
@@ -163,46 +115,16 @@ Private Sub btnAlarms_Click()
     frmAlarms.Show
 End Sub
 
-Private Sub tmrStateMachineUpdate_Timer()
-    UpdateStateMachine
-End Sub
-
-'==========================
-'Port Receiver Events
-'==========================
-Private Sub comScanner_OnComm()
-    ScannerAvailable = True
-End Sub
 
 '==========================
 'Local Defined Functions.
 '==========================
 Private Sub ConfigureControls()
-    'Load Serial COM Configuration of config files
-    ConfigurePort comZebra, "ZebraPort.ini"
-    ConfigurePort comScanner, "ScannerPort.ini"
-    ConfigurePort comCognex, "CognexPort.ini"
-    ConfigurePort comHandScanner, "HandScannerPort.ini"
-    
     'Load Win Socket Configuration of config files
     ConfigureSocket sockMES, "MESSocket.ini"
-    
-    'Config IO Port
-    Set IOPortCom = New IOPort
-    UseEmulator = True
-    
-    If UseEmulator = True Then frmPortEmulator.Show
-    
 End Sub
 
 Private Sub OpenPorts()
-    'Open Serial COM
-    comZebra.PortOpen
-    comScanner.PortOpen
-    comCognex.PortOpen
-    comHandScanner.PortOpen
-
     'Open Win Socket Configuration of config files
     sockMES.Connect
 End Sub
-

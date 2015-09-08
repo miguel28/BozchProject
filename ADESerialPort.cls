@@ -14,21 +14,33 @@ Attribute VB_Exposed = False
 Attribute VB_Ext_KEY = "SavedWithClassBuilder6" ,"Yes"
 Attribute VB_Ext_KEY = "Top_Level" ,"Yes"
 Option Explicit
-Private Port As MSCommLib.MSComm
-Private FileConfig As String
+Public WithEvents Port As MSComm
+Attribute Port.VB_VarHelpID = -1
 
-Public PortNumber As Integer
-Public Settings As String
+Private FileConfig As String
+Private PortNumber As Integer
+Private Settings As String
+Private InBuffer As Integer
+Private OutBuffer As Integer
+
+Public Event OnComm()
+
+Private Sub Class_Initialize()
+    Set Port = New MSComm
+End Sub
+
+Public Function GetAvailableBytes() As Integer
+    GetAvailableBytes = Port.InBufferCount
+End Function
 
 Public Function ConfigurePort(configFile As String)
     ReadConfig (configFile) ' Lee el archivo de configuracion como texto
     ParseConfig             ' Convierte Los Datos Leidos en Configuracion del puerto
     
-    Set Port = CreateObject("mscommlib.MSComm")
     Port.CommPort = PortNumber
     Port.Settings = Settings
-    
-    MsgBox Port.Settings
+    Port.InBufferSize = InBuffer
+    Port.OutBufferSize = OutBuffer
 End Function
 
 Private Function ReadConfig(configFile As String)
@@ -44,6 +56,7 @@ Private Function ReadConfig(configFile As String)
     FileConfig = StrConv(InputB(LOF(intFile), intFile), vbUnicode)
     Close #intFile
 End Function
+
 
 Private Function ParseConfig()
     Dim configs() As String
@@ -63,7 +76,18 @@ Private Function ParseConfig()
             options = Split(configs(i), "=")
             Settings = options(1)
         End If
+        
+        If InStr(configs(i), "InBufferSize=") > 0 Then
+            options = Split(configs(i), "=")
+            InBuffer = Int(options(1))
+        End If
+        If InStr(configs(i), "OutBufferSize=") > 0 Then
+            options = Split(configs(i), "=")
+            OutBuffer = options(1)
+        End If
     Next i
-    
-    
 End Function
+
+Private Sub Port_OnComm()
+    RaiseEvent OnComm
+End Sub
