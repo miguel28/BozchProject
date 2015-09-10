@@ -15,23 +15,15 @@ Public WithEvents comZebra As ADESerialPort
 Attribute comZebra.VB_VarHelpID = -1
 Public WithEvents comScanner As ADESerialPort
 Attribute comScanner.VB_VarHelpID = -1
-Public WithEvents comCognex As ADESerialPort
-Attribute comCognex.VB_VarHelpID = -1
-Public WithEvents comHandScanner As ADESerialPort
-Attribute comHandScanner.VB_VarHelpID = -1
 
 Private Sub Class_Initialize()
     'Create Ports
     Set comZebra = New ADESerialPort
     Set comScanner = New ADESerialPort
-    Set comCognex = New ADESerialPort
-    Set comHandScanner = New ADESerialPort
 
     'Load Serial COM Configuration of config files
-    comZebra.ConfigurePort "ZebraPort.ini"
-    comScanner.ConfigurePort "ScannerPort.ini"
-    comCognex.ConfigurePort "CognexPort.ini"
-    comHandScanner.ConfigurePort "HandScannerPort.ini"
+    comZebra.ConfigurePort "config\ZebraPort.ini"
+    comScanner.ConfigurePort "config\ScannerPort.ini"
 End Sub
 
 '==========================
@@ -41,3 +33,8 @@ End Sub
 Private Sub comZebra_OnComm()
 '
 End Sub
+
+Private Sub comScanner_OnComm()
+'
+End Sub
+

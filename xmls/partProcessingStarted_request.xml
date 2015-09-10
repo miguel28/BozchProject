@@ -1,0 +1,19 @@
+<?xml version="1.0" encoding="ISO-8859-1"?>
+<root>
+  <header eventId="34460" version="1.0" eventName="partProcessingStarted" eventSwitch="-1" timeStamp="2014-05-05T11:12:56.3187547+05:30">
+    <location lineNo="404" statNo="9807" statIdx="1" fuNo="1" workPos="2" toolPos="1" processNo="404" processName="Labeling" application="PLC" />
+  </header>
+  <event>
+    <partProcessingStarted identifier="0103751738" />
+  </event>
+  <body>
+    <identifierType>PCB-DMC</identifierType>
+    <typeNo>0261S08327</typeNo>
+    <typeVar>0000</typeVar>
+    <charge>
+    </charge>
+    <partCount>1</partCount>
+    <partPosition>1</partPosition>
+    <created>false</created>
+  </body>
+</root>

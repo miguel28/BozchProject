@@ -1,43 +1,368 @@
 VERSION 5.00
 Object = "{248DD890-BB45-11CF-9ABC-0080C7E7B78D}#1.0#0"; "MSWINSCK.OCX"
 Begin VB.Form frmMain 
+   BackColor       =   &H00C0C0C0&
    Caption         =   "BOSCH Project"
-   ClientHeight    =   5115
+   ClientHeight    =   9255
    ClientLeft      =   330
    ClientTop       =   450
-   ClientWidth     =   11730
+   ClientWidth     =   11925
    LinkTopic       =   "Form1"
-   ScaleHeight     =   5115
-   ScaleWidth      =   11730
-   Begin VB.CommandButton btnAlarms 
-      Caption         =   "Alarmas"
-      Height          =   495
-      Left            =   8160
-      TabIndex        =   1
-      Top             =   4200
-      Width           =   1455
+   ScaleHeight     =   9255
+   ScaleWidth      =   11925
+   Begin VB.CommandButton Command1 
+      Caption         =   "Command1"
+      Height          =   615
+      Left            =   7200
+      TabIndex        =   21
+      Top             =   8040
+      Width           =   1815
+   End
+   Begin VB.Frame Frame2 
+      BackColor       =   &H00C0C0C0&
+      Caption         =   "Opciones"
+      Height          =   3495
+      Left            =   120
+      TabIndex        =   16
+      Top             =   5520
+      Width           =   5055
+      Begin VB.CommandButton cmdexit 
+         BackColor       =   &H00FFFFFF&
+         Caption         =   "Salir"
+         BeginProperty Font 
+            Name            =   "MS Sans Serif"
+            Size            =   12
+            Charset         =   0
+            Weight          =   700
+            Underline       =   0   'False
+            Italic          =   0   'False
+            Strikethrough   =   0   'False
+         EndProperty
+         Height          =   1455
+         Left            =   3240
+         Picture         =   "frmMain.frx":0000
+         Style           =   1  'Graphical
+         TabIndex        =   19
+         Top             =   240
+         Width           =   1455
+      End
+      Begin VB.CommandButton btnUtils 
+         BackColor       =   &H00FFFFFF&
+         Caption         =   "Utilerias"
+         BeginProperty Font 
+            Name            =   "MS Sans Serif"
+            Size            =   12
+            Charset         =   0
+            Weight          =   700
+            Underline       =   0   'False
+            Italic          =   0   'False
+            Strikethrough   =   0   'False
+         EndProperty
+         Height          =   1455
+         Left            =   120
+         Picture         =   "frmMain.frx":08A8
+         Style           =   1  'Graphical
+         TabIndex        =   18
+         Top             =   240
+         Width           =   1455
+      End
+      Begin VB.CommandButton Command3 
+         BackColor       =   &H00FFFFFF&
+         Caption         =   "Cambio Modelo"
+         BeginProperty Font 
+            Name            =   "MS Sans Serif"
+            Size            =   12
+            Charset         =   0
+            Weight          =   700
+            Underline       =   0   'False
+            Italic          =   0   'False
+            Strikethrough   =   0   'False
+         EndProperty
+         Height          =   1455
+         Left            =   1680
+         Picture         =   "frmMain.frx":13F3
+         Style           =   1  'Graphical
+         TabIndex        =   17
+         Top             =   240
+         Width           =   1455
+      End
+      Begin VB.Label lblAMS 
+         BackColor       =   &H00C0C0C0&
+         Caption         =   "ESTACION SIN CONEXION                     MES"
+         BeginProperty Font 
+            Name            =   "MS Sans Serif"
+            Size            =   13.5
+            Charset         =   0
+            Weight          =   700
+            Underline       =   0   'False
+            Italic          =   0   'False
+            Strikethrough   =   0   'False
+         EndProperty
+         ForeColor       =   &H000000FF&
+         Height          =   735
+         Left            =   600
+         TabIndex        =   20
+         Top             =   2400
+         Visible         =   0   'False
+         Width           =   3975
+      End
+   End
+   Begin VB.TextBox txtOperador 
+      Alignment       =   2  'Center
+      BackColor       =   &H00E0E0E0&
+      BeginProperty Font 
+         Name            =   "MS Sans Serif"
+         Size            =   13.5
+         Charset         =   0
+         Weight          =   700
+         Underline       =   0   'False
+         Italic          =   0   'False
+         Strikethrough   =   0   'False
+      EndProperty
+      Height          =   3735
+      Left            =   5400
+      MultiLine       =   -1  'True
+      TabIndex        =   15
+      Text            =   "frmMain.frx":1CB6
+      Top             =   1680
+      Width           =   4455
+   End
+   Begin VB.Frame Frame1 
+      BackColor       =   &H00C0C0C0&
+      Height          =   3855
+      Left            =   120
+      TabIndex        =   4
+      Top             =   1560
+      Width           =   5055
+      Begin VB.TextBox txtPN 
+         Alignment       =   2  'Center
+         BackColor       =   &H00FFFFFF&
+         BeginProperty Font 
+            Name            =   "MS Sans Serif"
+            Size            =   12
+            Charset         =   0
+            Weight          =   700
+            Underline       =   0   'False
+            Italic          =   0   'False
+            Strikethrough   =   0   'False
+         EndProperty
+         ForeColor       =   &H00000000&
+         Height          =   420
+         Left            =   2280
+         Locked          =   -1  'True
+         TabIndex        =   9
+         TabStop         =   0   'False
+         Top             =   1080
+         Width           =   2295
+      End
+      Begin VB.TextBox txtcounter 
+         Alignment       =   2  'Center
+         BackColor       =   &H00FFFFFF&
+         BeginProperty Font 
+            Name            =   "MS Sans Serif"
+            Size            =   13.5
+            Charset         =   0
+            Weight          =   700
+            Underline       =   0   'False
+            Italic          =   0   'False
+            Strikethrough   =   0   'False
+         EndProperty
+         ForeColor       =   &H00000000&
+         Height          =   465
+         Left            =   2280
+         Locked          =   -1  'True
+         TabIndex        =   8
+         TabStop         =   0   'False
+         Top             =   1680
+         Width           =   2295
+      End
+      Begin VB.TextBox txtSN 
+         Alignment       =   2  'Center
+         BackColor       =   &H00FFFFFF&
+         BeginProperty Font 
+            Name            =   "MS Sans Serif"
+            Size            =   12
+            Charset         =   0
+            Weight          =   700
+            Underline       =   0   'False
+            Italic          =   0   'False
+            Strikethrough   =   0   'False
+         EndProperty
+         ForeColor       =   &H00000000&
+         Height          =   420
+         Left            =   2280
+         Locked          =   -1  'True
+         TabIndex        =   7
+         TabStop         =   0   'False
+         Top             =   480
+         Width           =   2295
+      End
+      Begin VB.TextBox txtbadunits 
+         Alignment       =   2  'Center
+         BackColor       =   &H00FFFFFF&
+         BeginProperty Font 
+            Name            =   "MS Sans Serif"
+            Size            =   13.5
+            Charset         =   0
+            Weight          =   700
+            Underline       =   0   'False
+            Italic          =   0   'False
+            Strikethrough   =   0   'False
+         EndProperty
+         ForeColor       =   &H00000000&
+         Height          =   480
+         Left            =   2280
+         Locked          =   -1  'True
+         TabIndex        =   6
+         Top             =   2400
+         Width           =   2295
+      End
+      Begin VB.TextBox txtcycle 
+         Alignment       =   2  'Center
+         BeginProperty Font 
+            Name            =   "MS Sans Serif"
+            Size            =   13.5
+            Charset         =   0
+            Weight          =   700
+            Underline       =   0   'False
+            Italic          =   0   'False
+            Strikethrough   =   0   'False
+         EndProperty
+         Height          =   495
+         Left            =   2280
+         Locked          =   -1  'True
+         TabIndex        =   5
+         Top             =   3120
+         Width           =   2295
+      End
+      Begin VB.Label Label1 
+         BackColor       =   &H00C0C0C0&
+         Caption         =   "Numero de Parte"
+         BeginProperty Font 
+            Name            =   "MS Sans Serif"
+            Size            =   12
+            Charset         =   0
+            Weight          =   700
+            Underline       =   0   'False
+            Italic          =   0   'False
+            Strikethrough   =   0   'False
+         EndProperty
+         ForeColor       =   &H00FFFFFF&
+         Height          =   375
+         Left            =   120
+         TabIndex        =   14
+         Top             =   1080
+         Width           =   2175
+      End
+      Begin VB.Label Label2 
+         BackColor       =   &H00C0C0C0&
+         Caption         =   "Unidades Buenas"
+         BeginProperty Font 
+            Name            =   "MS Sans Serif"
+            Size            =   12
+            Charset         =   0
+            Weight          =   700
+            Underline       =   0   'False
+            Italic          =   0   'False
+            Strikethrough   =   0   'False
+         EndProperty
+         ForeColor       =   &H00FFFFFF&
+         Height          =   495
+         Left            =   120
+         TabIndex        =   13
+         Top             =   1680
+         Width           =   2175
+      End
+      Begin VB.Label Label4 
+         BackColor       =   &H00C0C0C0&
+         Caption         =   "Numero Serial "
+         BeginProperty Font 
+            Name            =   "MS Sans Serif"
+            Size            =   12
+            Charset         =   0
+            Weight          =   700
+            Underline       =   0   'False
+            Italic          =   0   'False
+            Strikethrough   =   0   'False
+         EndProperty
+         ForeColor       =   &H00FFFFFF&
+         Height          =   495
+         Left            =   120
+         TabIndex        =   12
+         Top             =   360
+         Width           =   1815
+      End
+      Begin VB.Label Label7 
+         BackColor       =   &H00C0C0C0&
+         Caption         =   "Unidades Malas"
+         BeginProperty Font 
+            Name            =   "MS Sans Serif"
+            Size            =   12
+            Charset         =   0
+            Weight          =   700
+            Underline       =   0   'False
+            Italic          =   0   'False
+            Strikethrough   =   0   'False
+         EndProperty
+         ForeColor       =   &H00FFFFFF&
+         Height          =   495
+         Left            =   120
+         TabIndex        =   11
+         Top             =   2400
+         Width           =   1935
+      End
+      Begin VB.Label lblcycle 
+         BackColor       =   &H00C0C0C0&
+         Caption         =   "Ciclo de Prueba"
+         BeginProperty Font 
+            Name            =   "MS Sans Serif"
+            Size            =   12
+            Charset         =   0
+            Weight          =   700
+            Underline       =   0   'False
+            Italic          =   0   'False
+            Strikethrough   =   0   'False
+         EndProperty
+         ForeColor       =   &H8000000E&
+         Height          =   495
+         Left            =   120
+         TabIndex        =   10
+         Top             =   3120
+         Width           =   2055
+      End
+   End
+   Begin VB.PictureBox Picture3 
+      Height          =   1455
+      Left            =   2880
+      Picture         =   "frmMain.frx":1CBC
+      ScaleHeight     =   1395
+      ScaleWidth      =   5715
+      TabIndex        =   3
+      TabStop         =   0   'False
+      Top             =   0
+      Width           =   5775
    End
    Begin VB.CommandButton btnMantenaince 
       Caption         =   "Mantenimiento"
       Height          =   495
-      Left            =   9720
+      Left            =   9960
       TabIndex        =   0
-      Top             =   4200
+      Top             =   8520
       Width           =   1575
    End
    Begin MSWinsockLib.Winsock sockMES 
-      Left            =   120
-      Top             =   4560
+      Left            =   9960
+      Top             =   6240
       _ExtentX        =   741
       _ExtentY        =   741
       _Version        =   393216
    End
    Begin VB.Label lblPartNumber 
       Caption         =   "Numero de Parte:"
-      Height          =   375
-      Left            =   240
-      TabIndex        =   3
-      Top             =   2280
+      Height          =   255
+      Left            =   6600
+      TabIndex        =   2
+      Top             =   6120
       Width           =   3375
    End
    Begin VB.Label lblOperatorMsg 
@@ -45,18 +370,18 @@ Begin VB.Form frmMain
       Caption         =   "Mensaje para el Operador"
       BeginProperty Font 
          Name            =   "MS Sans Serif"
-         Size            =   24
+         Size            =   12
          Charset         =   0
          Weight          =   700
          Underline       =   0   'False
          Italic          =   0   'False
          Strikethrough   =   0   'False
       EndProperty
-      Height          =   1695
-      Left            =   1320
-      TabIndex        =   2
-      Top             =   240
-      Width           =   8895
+      Height          =   375
+      Left            =   6600
+      TabIndex        =   1
+      Top             =   5640
+      Width           =   4575
    End
 End
 Attribute VB_Name = "frmMain"
@@ -70,12 +395,22 @@ Option Explicit
 '==========================
 
 
+Private Sub Command1_Click()
+    Dim xml As XMLParser
+    Set xml = New XMLParser
+    xml.Load ("xmls\partReceived_request.xml")
+    MsgBox xml.Code
+    xml.SetAttribute "identifier", "50505"
+    MsgBox xml.Code
+
+End Sub
+
 '==========================
 'Controls Events
 '==========================
 Private Sub Form_Initialize()
     InitializeProgram
-    StartStateMachine
+    'StartStateMachine
 End Sub
 
 Private Sub Form_Resize()
@@ -85,10 +420,6 @@ Private Sub Form_Resize()
     
     btnMantenaince.Left = Me.Width - 2500
     btnMantenaince.Top = Me.height - 1500
-    
-    btnAlarms.Left = Me.Width - 4500
-    btnAlarms.Top = Me.height - 1500
-    
     lblOperatorMsg.Left = (Me.Width / 2) - (lblOperatorMsg.Width) / 2
 End Sub
 
@@ -96,7 +427,6 @@ Private Sub Form_Unload(Cancel As Integer)
     Unload Me
     StopStateMachine
     Unload frmPortEmulator
-    Unload frmAlarms
     End
 End Sub
 
@@ -110,12 +440,6 @@ Private Sub btnMantenaince_Click()
     End If
 End Sub
 
-Private Sub btnAlarms_Click()
-    AddAlarmMessage "Mensaje de Error"
-    frmAlarms.Show
-End Sub
-
-
 '==========================
 'Local Defined Functions.
 '==========================
@@ -128,3 +452,4 @@ Private Sub OpenPorts()
     'Open Win Socket Configuration of config files
     sockMES.Connect
 End Sub
+

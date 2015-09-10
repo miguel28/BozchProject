@@ -35,7 +35,7 @@ Public Function ReadFromScanner() As String
     If UseEmulator = True Then
         ReadFromScanner = frmPortEmulator.txtScanner.text
     Else
-        'ReadFromScanner = frmMain.comScanner.Input
+        'ReadFromScanner = machine.comScanner.Input
     End If
     ScannerAvailable = False
 End Function
@@ -54,6 +54,6 @@ Public Function PrintZebra(Datos As String)
     If UseEmulator = True Then
         frmPortEmulator.txtZPL.text = frmPortEmulator.txtZPL.text & maker.Code & vbCrLf
     Else
-        machine.comZebra.Output = maker.Code
+        'machine.comZebra.Output = maker.Code
     End If
 End Function

@@ -1,0 +1,10 @@
+﻿<?xml version="1.0" encoding="UTF-8"?>
+<root>
+  <header version="2.1" eventId="610" eventName="partReceived" contentType="3" >
+    <location lineNo="%lineNo%" statNo="%statNo%" statIdx="%statIdx%" fuNo="%fuNo%" workPos="%workPos%" toolPos="%toolPos%" processNo="%processNo%" processName="%processName%" application="%application%" />
+  </header>
+  <event>
+    <partReceived identifier="%identifier%" typeNo="%typeNo%" typeVar="%typeVar%" />
+  </event>
+  <body />
+</root>

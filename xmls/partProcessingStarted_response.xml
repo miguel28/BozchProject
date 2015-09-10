@@ -1,0 +1,24 @@
+﻿<?xml version="1.0" encoding="utf-8" standalone="yes"?>
+<root>
+  <header eventId="34460" eventName="partProcessingStarted" version="1.0" eventSwitch="-1" timeStamp="2014-05-05T11:12:56.3187547+05:30">
+    <location lineNo="229" statNo="9807" statIdx="1" fuNo="1" workPos="2" toolPos="1" application="PLC" processName="Labeling" processNo="404" />
+  </header>
+  <event>
+    <result returnCode="0">
+    </result>
+  </event>
+  <body>
+    <items>
+      <item name="Field6_ChangeStatus" value="5012001" dataType="8" />
+      <item name="Field7_ProductionNumber" value="1234" dataType="8" />
+      <item name="Field10_AudiPartNo" value="8W0907063E" dataType="8" />
+      <item name="Field11_SW" value="215" dataType="8" />	
+      <item name="Field14_HW" value="012" dataType="8" />
+      <item name="Field15_Qspec" value="06S" dataType="8" />
+      <item name="Field17_DMC" value="3#5K0035356#H012S0215#*K19RB6-90501.12.0800030240*=     " dataType="8" />
+      <item name="Field18_RefNo" value="8W0907063E" dataType="8" />
+      <item name="ccsFazitstring" value="RB6-90501.12.0800030240" dataType="8" />
+    </items>
+    <itemCount>9</itemCount>
+  </body>
+</root>
