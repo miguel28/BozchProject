@@ -14,7 +14,7 @@ Begin VB.Form frmMain
       Caption         =   "Command1"
       Height          =   615
       Left            =   7200
-      TabIndex        =   21
+      TabIndex        =   19
       Top             =   8040
       Width           =   1815
    End
@@ -23,7 +23,7 @@ Begin VB.Form frmMain
       Caption         =   "Opciones"
       Height          =   3495
       Left            =   120
-      TabIndex        =   16
+      TabIndex        =   14
       Top             =   5520
       Width           =   5055
       Begin VB.CommandButton cmdexit 
@@ -42,7 +42,7 @@ Begin VB.Form frmMain
          Left            =   3240
          Picture         =   "frmMain.frx":0000
          Style           =   1  'Graphical
-         TabIndex        =   19
+         TabIndex        =   17
          Top             =   240
          Width           =   1455
       End
@@ -62,7 +62,7 @@ Begin VB.Form frmMain
          Left            =   120
          Picture         =   "frmMain.frx":08A8
          Style           =   1  'Graphical
-         TabIndex        =   18
+         TabIndex        =   16
          Top             =   240
          Width           =   1455
       End
@@ -82,7 +82,7 @@ Begin VB.Form frmMain
          Left            =   1680
          Picture         =   "frmMain.frx":13F3
          Style           =   1  'Graphical
-         TabIndex        =   17
+         TabIndex        =   15
          Top             =   240
          Width           =   1455
       End
@@ -101,7 +101,7 @@ Begin VB.Form frmMain
          ForeColor       =   &H000000FF&
          Height          =   735
          Left            =   600
-         TabIndex        =   20
+         TabIndex        =   18
          Top             =   2400
          Visible         =   0   'False
          Width           =   3975
@@ -122,7 +122,7 @@ Begin VB.Form frmMain
       Height          =   3735
       Left            =   5400
       MultiLine       =   -1  'True
-      TabIndex        =   15
+      TabIndex        =   13
       Text            =   "frmMain.frx":1CB6
       Top             =   1680
       Width           =   4455
@@ -134,6 +134,22 @@ Begin VB.Form frmMain
       TabIndex        =   4
       Top             =   1560
       Width           =   5055
+      Begin VB.ComboBox cboxParts 
+         BeginProperty Font 
+            Name            =   "MS Sans Serif"
+            Size            =   13.5
+            Charset         =   0
+            Weight          =   400
+            Underline       =   0   'False
+            Italic          =   0   'False
+            Strikethrough   =   0   'False
+         EndProperty
+         Height          =   480
+         Left            =   1320
+         TabIndex        =   20
+         Top             =   3120
+         Width           =   3255
+      End
       Begin VB.TextBox txtPN 
          Alignment       =   2  'Center
          BackColor       =   &H00FFFFFF&
@@ -150,7 +166,7 @@ Begin VB.Form frmMain
          Height          =   420
          Left            =   2280
          Locked          =   -1  'True
-         TabIndex        =   9
+         TabIndex        =   8
          TabStop         =   0   'False
          Top             =   1080
          Width           =   2295
@@ -171,7 +187,7 @@ Begin VB.Form frmMain
          Height          =   465
          Left            =   2280
          Locked          =   -1  'True
-         TabIndex        =   8
+         TabIndex        =   7
          TabStop         =   0   'False
          Top             =   1680
          Width           =   2295
@@ -192,7 +208,7 @@ Begin VB.Form frmMain
          Height          =   420
          Left            =   2280
          Locked          =   -1  'True
-         TabIndex        =   7
+         TabIndex        =   6
          TabStop         =   0   'False
          Top             =   480
          Width           =   2295
@@ -213,26 +229,8 @@ Begin VB.Form frmMain
          Height          =   480
          Left            =   2280
          Locked          =   -1  'True
-         TabIndex        =   6
-         Top             =   2400
-         Width           =   2295
-      End
-      Begin VB.TextBox txtcycle 
-         Alignment       =   2  'Center
-         BeginProperty Font 
-            Name            =   "MS Sans Serif"
-            Size            =   13.5
-            Charset         =   0
-            Weight          =   700
-            Underline       =   0   'False
-            Italic          =   0   'False
-            Strikethrough   =   0   'False
-         EndProperty
-         Height          =   495
-         Left            =   2280
-         Locked          =   -1  'True
          TabIndex        =   5
-         Top             =   3120
+         Top             =   2400
          Width           =   2295
       End
       Begin VB.Label Label1 
@@ -250,7 +248,7 @@ Begin VB.Form frmMain
          ForeColor       =   &H00FFFFFF&
          Height          =   375
          Left            =   120
-         TabIndex        =   14
+         TabIndex        =   12
          Top             =   1080
          Width           =   2175
       End
@@ -269,7 +267,7 @@ Begin VB.Form frmMain
          ForeColor       =   &H00FFFFFF&
          Height          =   495
          Left            =   120
-         TabIndex        =   13
+         TabIndex        =   11
          Top             =   1680
          Width           =   2175
       End
@@ -288,7 +286,7 @@ Begin VB.Form frmMain
          ForeColor       =   &H00FFFFFF&
          Height          =   495
          Left            =   120
-         TabIndex        =   12
+         TabIndex        =   10
          Top             =   360
          Width           =   1815
       End
@@ -307,31 +305,12 @@ Begin VB.Form frmMain
          ForeColor       =   &H00FFFFFF&
          Height          =   495
          Left            =   120
-         TabIndex        =   11
+         TabIndex        =   9
          Top             =   2400
          Width           =   1935
       End
-      Begin VB.Label lblcycle 
-         BackColor       =   &H00C0C0C0&
-         Caption         =   "Ciclo de Prueba"
-         BeginProperty Font 
-            Name            =   "MS Sans Serif"
-            Size            =   12
-            Charset         =   0
-            Weight          =   700
-            Underline       =   0   'False
-            Italic          =   0   'False
-            Strikethrough   =   0   'False
-         EndProperty
-         ForeColor       =   &H8000000E&
-         Height          =   495
-         Left            =   120
-         TabIndex        =   10
-         Top             =   3120
-         Width           =   2055
-      End
    End
-   Begin VB.PictureBox Picture3 
+   Begin VB.PictureBox picBosch 
       Height          =   1455
       Left            =   2880
       Picture         =   "frmMain.frx":1CBC
@@ -351,8 +330,8 @@ Begin VB.Form frmMain
       Width           =   1575
    End
    Begin MSWinsockLib.Winsock sockMES 
-      Left            =   9960
-      Top             =   6240
+      Left            =   10320
+      Top             =   7560
       _ExtentX        =   741
       _ExtentY        =   741
       _Version        =   393216
@@ -398,7 +377,7 @@ Option Explicit
 Private Sub Command1_Click()
     Dim xml As XMLParser
     Set xml = New XMLParser
-    xml.Load ("xmls\partReceived_request.xml")
+    xml.Load ("xmls\partReceived_request2.xml")
     MsgBox xml.Code
     xml.SetAttribute "identifier", "50505"
     MsgBox xml.Code
@@ -410,6 +389,7 @@ End Sub
 '==========================
 Private Sub Form_Initialize()
     InitializeProgram
+    LoadPartNumbers cboxParts
     'StartStateMachine
 End Sub
 
@@ -421,6 +401,8 @@ Private Sub Form_Resize()
     btnMantenaince.Left = Me.Width - 2500
     btnMantenaince.Top = Me.height - 1500
     lblOperatorMsg.Left = (Me.Width / 2) - (lblOperatorMsg.Width) / 2
+    picBosch.Left = (Me.Width / 2) - (picBosch.Width) / 2
+    
 End Sub
 
 Private Sub Form_Unload(Cancel As Integer)

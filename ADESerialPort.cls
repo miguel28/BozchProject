@@ -44,17 +44,22 @@ Public Function ConfigurePort(configFile As String)
 End Function
 
 Private Function ReadConfig(configFile As String)
+    On Error GoTo Error
+
     Dim intFile As Integer
     Dim ExecutablePath As String
     Dim ConfigPath As String
     intFile = FreeFile
     
-    ExecutablePath = App.Path & "\"
+    ExecutablePath = App.path & "\"
     ConfigPath = ExecutablePath & configFile
     
     Open ConfigPath For Input As #intFile
     FileConfig = StrConv(InputB(LOF(intFile), intFile), vbUnicode)
     Close #intFile
+    Exit Function
+Error:
+    MsgBox "Error No se Pudo Archivo de configuracion para puerto serial: " & configFile
 End Function
 
 

@@ -18,6 +18,8 @@ Private Sub Class_Initialize()
 End Sub
 
 Public Function Load(file As String)
+    On Error GoTo Error
+
     Dim intFile As Integer
     Dim ExecutablePath As String
     Dim path As String
@@ -33,6 +35,10 @@ Public Function Load(file As String)
     Close #intFile
 
     Code = Replace(content, "﻿", "")
+    Exit Function
+Error:
+    MsgBox "Error No se Pudo encontrar el telegrama prototipo: " & file
+
 End Function
 
 Public Function SetAttribute(attrName As String, value As String)
@@ -54,4 +60,20 @@ Public Function GetAttribute(attrName As String) As String
     
     result = Mid(Code, Index1, Index2 - Index1)
     GetAttribute = result
+End Function
+
+Public Function GetValue(valName As String) As String
+    Dim SearchTerm As String
+    Dim SearchTerm2 As String
+    Dim Index1 As Integer
+    Dim Index2 As Integer
+    Dim result As String
+    
+    SearchTerm = "<" & valName & ">"
+    SearchTerm2 = "</" & valName & ">"
+    Index1 = InStr(Code, SearchTerm, vbBinaryCompare)
+    Index2 = InStr(Code, SearchTerm2, vbBinaryCompare)
+    
+    result = Mid(Code, Index1, Index2 - Index1)
+    GetValue = result
 End Function

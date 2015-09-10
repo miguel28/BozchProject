@@ -1,10 +1,10 @@
 ﻿<?xml version="1.0" encoding="UTF-8"?>
 <root>
   <header version="2.1" eventId="635" eventName="plcChangeOverStarted" contentType="3" >
-    <location lineNo="229" statNo="9807" statIdx="1" fuNo="1" workPos="2" toolPos="1" processNo="404" processName="Labeling" application="PLC" />
+    <location lineNo="%lineNo%" statNo="%statNo%" statIdx="%statIdx%" fuNo="%fuNo%" workPos="%workPos%" toolPos="%toolPos%" processNo="%processNo%" processName="%processName%" application="%application%" />
   </header>
   <event>
-    <plcChangeOverStarted typeNo="1234567890" typeVar="0000" />
+    <plcChangeOverStarted typeNo="%typeNo%" typeVar="%typeVar%" />
   </event>
   <body />
 </root>

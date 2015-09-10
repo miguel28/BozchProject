@@ -16,10 +16,6 @@ Public PartNumber As String
 '==========================
 'Global Functions
 '==========================
-Public Function AddAlarmMessage(msg As String)
-    frmAlarms.txtAlarms.text = frmAlarms.txtAlarms.text & msg & vbCrLf
-End Function
-
 Public Function InitializeProgram()
     Set machine = New MachineClass
     
@@ -30,6 +26,46 @@ Public Function InitializeProgram()
     If UseEmulator = True Then frmPortEmulator.Show
 End Function
 
+Public Function ReadTextFile(file As String)
+    On Error GoTo Error
+
+    Dim intFile As Integer
+    Dim ExecutablePath As String
+    Dim path As String
+    Dim content As String
+    
+    intFile = FreeFile
+    
+    ExecutablePath = App.path & "\"
+    path = ExecutablePath & file
+    
+    Open path For Input As #intFile
+    content = StrConv(InputB(LOF(intFile), intFile), vbUnicode)
+    Close #intFile
+
+    ReadTextFile = content
+    Exit Function
+Error:
+    MsgBox "Error No se Pudo encontrar el archivo: " & file
+
+End Function
+
+Public Function LoadPartNumbers(cbox As ComboBox)
+    Dim Numbers As String
+    Numbers = ReadTextFile("config\PartNumbers.ini")
+    
+    Dim lines() As String
+    Dim arrayLen As Integer
+    
+    lines = Split(Numbers, vbCrLf)
+    arrayLen = UBound(lines) - LBound(lines) + 1
+    
+    Dim i As Integer
+    
+    For i = 0 To arrayLen - 1
+        cbox.AddItem lines(i)
+    Next i
+End Function
 
 Public Function ReadFromScanner() As String
     If UseEmulator = True Then

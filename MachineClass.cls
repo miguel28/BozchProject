@@ -11,11 +11,17 @@ Attribute VB_GlobalNameSpace = False
 Attribute VB_Creatable = True
 Attribute VB_PredeclaredId = False
 Attribute VB_Exposed = False
+'==========================
+'Definitions Of Ports
+'==========================
 Public WithEvents comZebra As ADESerialPort
 Attribute comZebra.VB_VarHelpID = -1
 Public WithEvents comScanner As ADESerialPort
 Attribute comScanner.VB_VarHelpID = -1
 
+'==========================
+'Class Constructor
+'==========================
 Private Sub Class_Initialize()
     'Create Ports
     Set comZebra = New ADESerialPort

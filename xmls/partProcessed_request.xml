@@ -1,14 +1,14 @@
 ﻿<?xml version="1.0" encoding="UTF-8"?>
 <root>
   <header version="2.1" eventId="612" eventName="partProcessed" contentType="3" >
-    <location lineNo="404" statNo="9807" statIdx="1" fuNo="1" workPos="2" toolPos="1" processNo="404" processName="Labeling" application="PLC" />
+    <location lineNo="%lineNo%" statNo="%statNo%" statIdx="%statIdx%" fuNo="%fuNo%" workPos="%workPos%" toolPos="%toolPos%" processNo="%processNo%" processName="%processName%" application="%application%" />
   </header>
   <event>
     <partProcessed identifier="1202340602" />
   </event>
   <body>
     <structs>
-      <resHead result="1" typeNo="1234567890" typeVar="0000" workingCode="0" nioBits="0" machineID="Labeling" />
+      <resHead result="1" typeNo="%typeNo%" typeVar="%typeVar%" workingCode="0" nioBits="0" machineID="Labeling" />
     </structs>
     <items>
       <item name="Prog1.Name" value="12345678900000" dataType="8" />
