@@ -59,7 +59,8 @@ Private Function ReadConfig(configFile As String)
     Close #intFile
     Exit Function
 Error:
-    MsgBox "Error No se Pudo Archivo de configuracion para puerto serial: " & configFile
+    MsgBox "Error No se Pudo Archivo de configuracion para puerto serial: " & configFile, vbCritical _
+            + vbOKOnly, "Error de lectura de archivo"
 End Function
 
 

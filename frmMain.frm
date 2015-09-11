@@ -3,19 +3,24 @@ Object = "{248DD890-BB45-11CF-9ABC-0080C7E7B78D}#1.0#0"; "MSWINSCK.OCX"
 Begin VB.Form frmMain 
    BackColor       =   &H00C0C0C0&
    Caption         =   "BOSCH Project"
-   ClientHeight    =   8265
+   ClientHeight    =   7935
    ClientLeft      =   330
    ClientTop       =   450
    ClientWidth     =   11925
    LinkTopic       =   "Form1"
-   ScaleHeight     =   8265
+   ScaleHeight     =   7935
    ScaleWidth      =   11925
+   Begin VB.Timer tmrUpdateStateMachine 
+      Interval        =   150
+      Left            =   600
+      Top             =   120
+   End
    Begin VB.Frame Frame3 
       BackColor       =   &H00C0C0C0&
       Caption         =   "Mensajes del Sistema"
       Height          =   1815
       Left            =   6120
-      TabIndex        =   21
+      TabIndex        =   19
       Top             =   5280
       Width           =   5655
       Begin VB.Label lblAMS 
@@ -33,7 +38,7 @@ Begin VB.Form frmMain
          ForeColor       =   &H000000FF&
          Height          =   735
          Left            =   840
-         TabIndex        =   22
+         TabIndex        =   20
          Top             =   360
          Visible         =   0   'False
          Width           =   3975
@@ -41,10 +46,10 @@ Begin VB.Form frmMain
    End
    Begin VB.CommandButton Command1 
       Caption         =   "Command1"
-      Height          =   615
-      Left            =   5400
-      TabIndex        =   17
-      Top             =   7440
+      Height          =   495
+      Left            =   8280
+      TabIndex        =   15
+      Top             =   7320
       Width           =   1815
    End
    Begin VB.Frame Frame2 
@@ -52,7 +57,7 @@ Begin VB.Form frmMain
       Caption         =   "Opciones"
       Height          =   1815
       Left            =   120
-      TabIndex        =   13
+      TabIndex        =   11
       Top             =   5280
       Width           =   5775
       Begin VB.CommandButton cmdexit 
@@ -71,7 +76,7 @@ Begin VB.Form frmMain
          Left            =   4080
          Picture         =   "frmMain.frx":0000
          Style           =   1  'Graphical
-         TabIndex        =   16
+         TabIndex        =   14
          Top             =   240
          Width           =   1455
       End
@@ -91,7 +96,7 @@ Begin VB.Form frmMain
          Left            =   360
          Picture         =   "frmMain.frx":08A8
          Style           =   1  'Graphical
-         TabIndex        =   15
+         TabIndex        =   13
          Top             =   240
          Width           =   1455
       End
@@ -111,7 +116,7 @@ Begin VB.Form frmMain
          Left            =   2160
          Picture         =   "frmMain.frx":13F3
          Style           =   1  'Graphical
-         TabIndex        =   14
+         TabIndex        =   12
          Top             =   240
          Width           =   1455
       End
@@ -121,7 +126,7 @@ Begin VB.Form frmMain
       BackColor       =   &H00E0E0E0&
       BeginProperty Font 
          Name            =   "MS Sans Serif"
-         Size            =   13.5
+         Size            =   24
          Charset         =   0
          Weight          =   700
          Underline       =   0   'False
@@ -131,7 +136,7 @@ Begin VB.Form frmMain
       Height          =   3495
       Left            =   6120
       MultiLine       =   -1  'True
-      TabIndex        =   12
+      TabIndex        =   10
       Top             =   1680
       Width           =   5655
    End
@@ -139,13 +144,13 @@ Begin VB.Form frmMain
       BackColor       =   &H00C0C0C0&
       Height          =   3615
       Left            =   120
-      TabIndex        =   4
+      TabIndex        =   2
       Top             =   1560
       Width           =   5775
       Begin VB.TextBox txtTypeVar 
          BeginProperty Font 
             Name            =   "MS Sans Serif"
-            Size            =   13.5
+            Size            =   12
             Charset         =   0
             Weight          =   700
             Underline       =   0   'False
@@ -155,23 +160,23 @@ Begin VB.Form frmMain
          Height          =   495
          Left            =   2400
          MaxLength       =   4
-         TabIndex        =   20
+         TabIndex        =   18
          Top             =   1680
          Width           =   3135
       End
       Begin VB.ComboBox cboxParts 
          BeginProperty Font 
             Name            =   "MS Sans Serif"
-            Size            =   13.5
+            Size            =   12
             Charset         =   0
-            Weight          =   400
+            Weight          =   700
             Underline       =   0   'False
             Italic          =   0   'False
             Strikethrough   =   0   'False
          EndProperty
-         Height          =   480
+         Height          =   420
          Left            =   2400
-         TabIndex        =   18
+         TabIndex        =   16
          Top             =   1080
          Width           =   3135
       End
@@ -191,7 +196,7 @@ Begin VB.Form frmMain
          Height          =   465
          Left            =   2400
          Locked          =   -1  'True
-         TabIndex        =   7
+         TabIndex        =   5
          TabStop         =   0   'False
          Top             =   2280
          Width           =   3135
@@ -212,7 +217,7 @@ Begin VB.Form frmMain
          Height          =   420
          Left            =   2400
          Locked          =   -1  'True
-         TabIndex        =   6
+         TabIndex        =   4
          TabStop         =   0   'False
          ToolTipText     =   "Numero de Seria de la parte, este es escaneado por el escaner manual"
          Top             =   480
@@ -234,7 +239,7 @@ Begin VB.Form frmMain
          Height          =   480
          Left            =   2400
          Locked          =   -1  'True
-         TabIndex        =   5
+         TabIndex        =   3
          Top             =   2880
          Width           =   3135
       End
@@ -253,7 +258,7 @@ Begin VB.Form frmMain
          ForeColor       =   &H00FFFFFF&
          Height          =   375
          Left            =   120
-         TabIndex        =   19
+         TabIndex        =   17
          Top             =   1800
          Width           =   2055
       End
@@ -272,7 +277,7 @@ Begin VB.Form frmMain
          ForeColor       =   &H00FFFFFF&
          Height          =   375
          Left            =   120
-         TabIndex        =   11
+         TabIndex        =   9
          Top             =   1200
          Width           =   2175
       End
@@ -291,7 +296,7 @@ Begin VB.Form frmMain
          ForeColor       =   &H00FFFFFF&
          Height          =   375
          Left            =   120
-         TabIndex        =   10
+         TabIndex        =   8
          Top             =   2400
          Width           =   2175
       End
@@ -310,7 +315,7 @@ Begin VB.Form frmMain
          ForeColor       =   &H00FFFFFF&
          Height          =   375
          Left            =   120
-         TabIndex        =   9
+         TabIndex        =   7
          Top             =   600
          Width           =   1815
       End
@@ -329,7 +334,7 @@ Begin VB.Form frmMain
          ForeColor       =   &H00FFFFFF&
          Height          =   375
          Left            =   120
-         TabIndex        =   8
+         TabIndex        =   6
          Top             =   3000
          Width           =   1935
       End
@@ -340,7 +345,7 @@ Begin VB.Form frmMain
       Picture         =   "frmMain.frx":1CB6
       ScaleHeight     =   1395
       ScaleWidth      =   5715
-      TabIndex        =   3
+      TabIndex        =   1
       TabStop         =   0   'False
       Top             =   0
       Width           =   5775
@@ -354,37 +359,11 @@ Begin VB.Form frmMain
       Width           =   1575
    End
    Begin MSWinsockLib.Winsock sockMES 
-      Left            =   8760
-      Top             =   1080
+      Left            =   120
+      Top             =   120
       _ExtentX        =   741
       _ExtentY        =   741
       _Version        =   393216
-   End
-   Begin VB.Label lblPartNumber 
-      Caption         =   "Numero de Parte:"
-      Height          =   255
-      Left            =   7320
-      TabIndex        =   2
-      Top             =   7320
-      Width           =   2655
-   End
-   Begin VB.Label lblOperatorMsg 
-      Alignment       =   2  'Center
-      Caption         =   "Mensaje para el Operador"
-      BeginProperty Font 
-         Name            =   "MS Sans Serif"
-         Size            =   12
-         Charset         =   0
-         Weight          =   700
-         Underline       =   0   'False
-         Italic          =   0   'False
-         Strikethrough   =   0   'False
-      EndProperty
-      Height          =   375
-      Left            =   240
-      TabIndex        =   1
-      Top             =   7440
-      Width           =   4575
    End
 End
 Attribute VB_Name = "frmMain"
@@ -414,7 +393,7 @@ End Sub
 Private Sub Form_Initialize()
     InitializeProgram
     LoadPartNumbers cboxParts
-    'StartStateMachine
+    StartStateMachine
 End Sub
 
 Private Sub Form_Resize()
@@ -424,7 +403,6 @@ Private Sub Form_Resize()
     
     btnMantenaince.Left = Me.Width - 2500
     btnMantenaince.Top = Me.height - 1500
-    lblOperatorMsg.Left = (Me.Width / 2) - (lblOperatorMsg.Width) / 2
     picBosch.Left = (Me.Width / 2) - (picBosch.Width) / 2
     
 End Sub
@@ -459,3 +437,6 @@ Private Sub OpenPorts()
     sockMES.Connect
 End Sub
 
+Private Sub tmrUpdateStateMachine_Timer()
+    UpdateStateMachine
+End Sub

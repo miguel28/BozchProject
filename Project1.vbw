@@ -1,4 +1,4 @@
-frmMain = 341, 193, 1077, 644, , 11, 5, 937, 479, C
+frmMain = 317, 61, 1053, 512, , 11, 5, 937, 512, C
 ADESerialPort = 33, 81, 912, 535, C
 ZPLMaker = 123, 119, 1002, 554, C
 SockConfiguration = 261, 50, 1037, 485, C
@@ -7,7 +7,7 @@ frmPortEmulator = -4, 205, 891, 656, C, 663, 0, 1079, 585, C
 BitOperations = 17, 113, 912, 564, 
 Globals = 369, 0, 1067, 451, 
 frmMantenaince = 239, 18, 815, 469, C, 0, 0, 558, 540, C
-StateMachine = 49, 84, 917, 535, C
+StateMachine = 77, 56, 945, 507, 
 WindowsNative = 75, 75, 943, 526, C
-MachineClass = 53, 144, 921, 581, C
+MachineClass = 53, 144, 921, 581, 
 XMLParser = 164, 19, 1037, 470, C

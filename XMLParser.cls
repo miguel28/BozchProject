@@ -37,7 +37,8 @@ Public Function Load(file As String)
     Code = Replace(content, "﻿", "")
     Exit Function
 Error:
-    MsgBox "Error No se Pudo encontrar el telegrama prototipo: " & file
+    MsgBox "Error No se Pudo encontrar el telegrama prototipo: " & file, vbCritical _
+            + vbOKOnly, "Error de lectura de archivo"
 
 End Function
 

@@ -272,7 +272,7 @@ Private Sub btnInputs_Click(Index As Integer)
 End Sub
 
 Private Sub btnSendScanner_Click()
-    ScannerAvailable = True
+    machine.ScannerAvailable = True
 End Sub
 
 Private Sub tmrUpdateIO_Timer()

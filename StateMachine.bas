@@ -1,19 +1,44 @@
 Attribute VB_Name = "StateMachine"
+Option Explicit
+'==========================
+' Private Variables
+'==========================
 Private TimerHandler As Long
 Private StepNumber As Integer
 
+'===================================================================
+' State Machine Step Definitions
+' Step 0 = Machine Inizialitation (Reinizialition)
+' Step 1 = Vefify if the Operator has select the Typenumber and TypeVar
+' Step 2 = Read Scaneer (Operator)
+' Step 3 = Send PartReceived Telegram to MES
+' Step 4 = Verifiying information of the Received Telegram MES
+' Step 5 = Send to MES the telegram PartProcessing Start
+' Step 6 = Refifiying information of the Received Telegram MES
+' Step 7 = Print Label In Zebra Printer
+'===================================================================
+
+'==========================
+' State Machine Control Start/Stop
+'==========================
 Public Function StartStateMachine()
     'Reset the State Machine to Step 0
-    StepNumber = 0
+    StepNumber = 1
     
     'To start the timer:
-    TimerHandler = SetTimer(0, 0, 20, AddressOf TimerProc)
+    'TimerHandler = SetTimer(0, 0, 200, AddressOf TimerProc)
+    frmMain.tmrUpdateStateMachine.Enabled = True
 End Function
 
 Public Function StopStateMachine()
     'To stop the timer:
-    KillTimer 0, TimerHandler
+    'KillTimer 0, TimerHandler
+    frmMain.tmrUpdateStateMachine.Enabled = False
 End Function
+
+'==========================
+' State Machine Procedures
+'==========================
 
 Private Sub TimerProc(ByVal hwnd As Long, _
                       ByVal lMsg As Long, _
@@ -22,51 +47,48 @@ Private Sub TimerProc(ByVal hwnd As Long, _
     UpdateStateMachine
 End Sub
 
+Public Function UpdateGUI()
+    frmMain.txtSN.text = machine.SeriaNumber
+    frmMain.txtcounter.text = Str(machine.GoodParts)
+    frmMain.txtbadunits.text = Str(machine.BadParts)
+End Function
 
-Private Function UpdateStateMachine()
+Public Function UpdateStateMachine()
     Select Case StepNumber
-        Case 0
-            frmMain.lblOperatorMsg.Caption = "Inicializando"
-            IOPortCom.SetOutput 0, True
-            IOPortCom.SetOutput 1, False
-            IOPortCom.SetOutput 2, True
-            IOPortCom.SetOutput 3, False
-
-            If IOPortCom.GetInput(1) = True And IOPortCom.GetInput(3) = True Then
-                StepNumber = 1
-            End If
-            
         Case 1
-            frmMain.lblOperatorMsg.Caption = "Ponga Parte en el Sensor"
-            If IOPortCom.GetInput(0) = True Then
-                IOPortCom.SetOutput 0, False
-                IOPortCom.SetOutput 1, True
-                IOPortCom.SetOutput 2, False
-                IOPortCom.SetOutput 3, True
-            
+            ' Checks that the Operator has selected the correct Information
+            If frmMain.cboxParts.ListIndex < 0 Or Len(frmMain.txtTypeVar.text) <> 4 Then
+                frmMain.txtOperador.text = "Seleccione Numero de Parte"
+            Else
+                machine.TypeNumber = frmMain.cboxParts.SelText
+                machine.TypeVar = frmMain.txtTypeVar.text
                 StepNumber = 2
             End If
         Case 2
-            frmMain.lblOperatorMsg.Caption = "Cerrando"
-            If IOPortCom.GetInput(2) = True And IOPortCom.GetInput(4) = True Then
-                StepNumber = 3
+            frmMain.txtOperador.text = "Escanee Numero de Serie"
+            If machine.ScannerAvailable = True Then
+                Dim result As Boolean
+                ' Reads the data in the scanner and stores them
+                ' in SerialNumber
+                ' This function will return true in the data has
+                ' has been correct
+                
+                result = machine.ReadFromScanner ' Read The scanner Data
+                If result = True Then
+                    StepNumber = 2
+                    UpdateGUI
+                Else
+                    StepNumber = 1
+                End If
+                
             End If
-            
+        Case 2
+            frmMain.txtOperador.text = "Enviando Respuesta a Sistema MES"
+
         Case 3
-            frmMain.lblOperatorMsg.Caption = "Escanee the numero de parte"
-            If ScannerAvailable = True Then
-                Sleep 200
-                PartNumber = ReadFromScanner
-                frmMain.lblPartNumber.Caption = "Numero de Parte " & PartNumber
-                StepNumber = 4
-            End If
+            frmMain.txtOperador.text = "Parte Aceptada"
+            
         Case 4
-            frmMain.lblOperatorMsg.Caption = "Imprimiendo Etiqueta"
-            PrintZebra PartNumber
-            StepNumber = 5
-        Case 5
-            Sleep 3000
-            frmMain.lblOperatorMsg.Caption = "Etiqueta Impresa"
-            StepNumber = 6
+
     End Select
 End Function

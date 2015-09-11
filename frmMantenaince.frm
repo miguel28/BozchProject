@@ -466,7 +466,7 @@ Private Sub btnOutputs_Click(Index As Integer)
 End Sub
 
 Private Sub btnPrintTest_Click()
-    PrintZebra "PART>147896325"
+    machine.PrintZebra "PART>147896325"
 End Sub
 
 Private Sub btnUnClampBoard_Click()

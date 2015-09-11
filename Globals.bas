@@ -6,7 +6,7 @@ Option Explicit
 Public machine As MachineClass
 Public IOPortCom As IOPort
 Public UseEmulator As Boolean
-Public ScannerAvailable As Boolean
+
 
 '==========================
 'Application Variables
@@ -17,12 +17,13 @@ Public PartNumber As String
 'Global Functions
 '==========================
 Public Function InitializeProgram()
+    'Create a Instance of the machine
     Set machine = New MachineClass
     
     'Config IO Port
     Set IOPortCom = New IOPort
-    UseEmulator = True
     
+    UseEmulator = True
     If UseEmulator = True Then frmPortEmulator.Show
 End Function
 
@@ -65,31 +66,4 @@ Public Function LoadPartNumbers(cbox As ComboBox)
     For i = 0 To arrayLen - 1
         cbox.AddItem lines(i)
     Next i
-End Function
-
-Public Function ReadFromScanner() As String
-    If UseEmulator = True Then
-        ReadFromScanner = frmPortEmulator.txtScanner.text
-    Else
-        'ReadFromScanner = machine.comScanner.Input
-    End If
-    ScannerAvailable = False
-End Function
-
-Public Function PrintZebra(Datos As String)
-    Dim maker As ZPLMaker
-    Set maker = New ZPLMaker
-    
-    maker.Begin
-    maker.SetOrigin 50, 50
-    maker.SetFontSize 30, 7
-    maker.BarCodeConfig 80, "Y", "Y", "N"
-    maker.PutText Datos
-    maker.Terminate
-
-    If UseEmulator = True Then
-        frmPortEmulator.txtZPL.text = frmPortEmulator.txtZPL.text & maker.Code & vbCrLf
-    Else
-        'machine.comZebra.Output = maker.Code
-    End If
 End Function
