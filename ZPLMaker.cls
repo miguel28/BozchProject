@@ -16,6 +16,36 @@ Attribute VB_Ext_KEY = "Top_Level" ,"Yes"
 Option Explicit
 Public Code As String
 
+
+Public Function Load(file As String)
+    On Error GoTo Error
+
+    Dim intFile As Integer
+    Dim ExecutablePath As String
+    Dim path As String
+    Dim content As String
+    
+    intFile = FreeFile
+    
+    ExecutablePath = App.path & "\"
+    path = ExecutablePath & file
+    
+    Open path For Input As #intFile
+    content = StrConv(InputB(LOF(intFile), intFile), vbUnicode)
+    Close #intFile
+
+    Code = content
+    Exit Function
+Error:
+    MsgBox "Error No se Pudo encontrar el archibo ZPL: " & file, vbCritical _
+            + vbOKOnly, "Error de lectura de archivo"
+
+End Function
+
+Public Function SetAttribute(attrName As String, value As String)
+    Code = Replace(Code, "%" & attrName & "%", value)
+End Function
+
 Public Function Begin()
     Code = "^XA"
 End Function

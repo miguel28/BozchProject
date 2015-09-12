@@ -25,6 +25,16 @@ Public processNo As String
 Public processName As String
 Public application As String
 
+Public Field6_ChangeStatus As String
+Public Field7_ProductionNumber As String
+Public Field10_AudiPartNo As String
+Public Field11_SW As String
+Public Field14_HW As String
+Public Field15_Qspec As String
+Public Field17_DMC As String
+Public Field18_RefNo As String
+Public ccsFazitstring As String
+
 '==========================
 'Application Variables
 '==========================
@@ -41,7 +51,7 @@ Public BadParts As Integer
 '==========================
 'Application Constants
 '==========================
-Private Const SerialNumberLength As Integer = 10 'This is the lenght spected to read from scanner
+Private Const SerialNumberLength As Integer = 9 'This is the lenght spected to read from scanner
 
 '==========================
 'Definitions Of Ports
@@ -68,7 +78,17 @@ Private Sub Class_Initialize()
 
     'Load Serial COM Configuration of config files
     comZebra.ConfigurePort "config\ZebraPort.ini"
+
+    
     comScanner.ConfigurePort "config\ScannerPort.ini"
+
+    If UseEmulator = False Then
+        comZebra.Port.PortOpen = True
+        comScanner.Port.PortOpen = True
+    End If
+    
+    
+    
 End Sub
 
 
@@ -82,15 +102,17 @@ Public Function ReadFromScanner() As Boolean
     If UseEmulator = True Then
         data = frmPortEmulator.txtScanner.text ' Read Emulated Data
     Else
-        Do While machine.comScanner.Port.InBufferCount = SerialNumberLength And i < 15
+        Do While machine.comScanner.Port.InBufferCount = SerialNumberLength And i < 25
             Sleep 10
             i = i + 1
         Loop
         data = machine.comScanner.Port.Input        ' Read From real Scanner Serial Port
     End If
-
+    
+    data = Replace(data, vbCrLf, "")
+    
     ' This if check if the for got the correct number od bytes from the scanner
-    If Len(data) <> SerialNumberLength Then ' If the Received Data is diferent of spected
+    If Len(data) < SerialNumberLength Then ' If the Received Data is diferent of spected
         MsgBox "Error al leer los datos del escaner se esperaban " & _
                 Str(SerialNumberLength) & " pero se recibieron " & Str(Len(data)) & _
                 ". Por favor vuelva a leer el archivo.", _
@@ -105,16 +127,13 @@ Public Function ReadFromScanner() As Boolean
     
 End Function
 
-Public Function PrintZebra(Datos As String)
+Public Function PrintZebra()
     Dim maker As ZPLMaker
     Set maker = New ZPLMaker
     
-    maker.Begin
-    maker.SetOrigin 50, 50
-    maker.SetFontSize 30, 7
-    maker.BarCodeConfig 80, "Y", "Y", "N"
-    maker.PutText Datos
-    maker.Terminate
+    maker.Load "zpls\testimprimr.txt"
+    maker.SetAttribute "numero", SerialNumber
+    
 
     If UseEmulator = True Then
         frmPortEmulator.txtZPL.text = frmPortEmulator.txtZPL.text & maker.Code & vbCrLf
@@ -132,6 +151,6 @@ Private Sub comZebra_OnComm()
 End Sub
 
 Private Sub comScanner_OnComm()
-    ScannerAvailable = False
+    ScannerAvailable = True
 End Sub
 

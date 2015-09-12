@@ -12,8 +12,8 @@
     <typeVar>%typeVar%</typeVar>
     <charge>
     </charge>
-    <partCount>%partCount%</partCount>
-    <partPosition>%partPosition%</partPosition>
-    <created>%created%</created>
+    <partCount>1</partCount>
+    <partPosition>1</partPosition>
+    <created>false</created>
   </body>
 </root>

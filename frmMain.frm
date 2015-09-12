@@ -169,6 +169,7 @@ Begin VB.Form frmMain
          Left            =   2400
          MaxLength       =   4
          TabIndex        =   18
+         Text            =   "0000"
          Top             =   1680
          Width           =   3135
       End
@@ -206,6 +207,7 @@ Begin VB.Form frmMain
          Locked          =   -1  'True
          TabIndex        =   5
          TabStop         =   0   'False
+         Text            =   "0"
          Top             =   2280
          Width           =   3135
       End
@@ -248,6 +250,7 @@ Begin VB.Form frmMain
          Left            =   2400
          Locked          =   -1  'True
          TabIndex        =   3
+         Text            =   "0"
          Top             =   2880
          Width           =   3135
       End
@@ -408,6 +411,7 @@ Private Sub Form_Initialize()
     OpenPorts
     
     LoadPartNumbers cboxParts
+    cboxParts.ListIndex = 0
     StartStateMachine
 End Sub
 
@@ -417,7 +421,7 @@ Private Sub Form_Resize()
     'If Me.height < 10000 Then Me.height = 7000
     
     btnMantenaince.Left = Me.Width - 2500
-    btnMantenaince.Top = Me.height - 1500
+    btnMantenaince.Top = Me.height - 1000
     picBosch.Left = (Me.Width / 2) - (picBosch.Width) / 2
     
 End Sub
@@ -450,8 +454,20 @@ End Sub
 Private Sub OpenPorts()
     'Open Win Socket Configuration of config files
     sockMES.Connect
+    
+    Dim attempts As Integer
     Do Until sockMES.State = sckConnected
     DoEvents
+    Sleep 100
+    
+    attempts = attempts + 1
+    If attempts > 50 Then
+         MsgBox "Error No se Pudo encontrar sistema MES: " & sockMES.RemoteHost & _
+         " Port: " & Str(sockMES.RemotePort), vbCritical _
+            + vbOKOnly, "Error connexion Sistema MES"
+            
+         End
+    End If
     Loop
 End Sub
 

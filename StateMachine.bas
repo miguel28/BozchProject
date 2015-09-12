@@ -51,6 +51,7 @@ Public Function UpdateGUI()
     frmMain.txtSN.text = machine.SerialNumber
     frmMain.txtcounter.text = Str(machine.GoodParts)
     frmMain.txtbadunits.text = Str(machine.BadParts)
+    machine.TypeNumber = frmMain.cboxParts.SelText
 End Function
 
 Public Function UpdateStateMachine()
@@ -66,7 +67,7 @@ Public Function UpdateStateMachine()
             End If
         Case 2
             frmMain.txtOperador.text = "Escanee Numero de Serie"
-            If machine.ScannerAvailable = True Then
+            If machine.comScanner.GetAvailableBytes > 8 Then
                 Dim result As Boolean
                 ' Reads the data in the scanner and stores them
                 ' in SerialNumber
@@ -94,6 +95,7 @@ Public Function UpdateStateMachine()
                     StepNumber = 5
                 Else
                     frmMain.txtOperador.text = "Error: esta pieza no debe ser procesda en esta estacion"
+                    DoEvents
                     Sleep 3000
                     StepNumber = 1
                 End If
@@ -101,7 +103,26 @@ Public Function UpdateStateMachine()
             
         Case 5
             frmMain.txtOperador.text = "Requiriendo informacion de etiqueta de MES"
-            
-            
+            SendPartProcessingStart
+            StepNumber = 6
+        Case 6
+            frmMain.txtOperador.text = "Esperando Respuesta de MES"
+            If machine.SocketAvailable Then
+                If ReadPartProcessingStart = True Then
+                    StepNumber = 7
+                Else
+                    frmMain.txtOperador.text = "Error: esta pieza no debe ser procesda en esta estacion"
+                    Sleep 3000
+                    StepNumber = 1
+                End If
+            End If
+        Case 7
+            frmMain.txtOperador.text = "Imprimiendo Etiqueta"
+            machine.PrintZebra
+            StepNumber = 8
+            DoEvents
+            Sleep 3000
+        Case 8
+            frmMain.txtOperador.text = "Pegue etiqueta en el producto y Escanee el codigo de barras"
     End Select
 End Function

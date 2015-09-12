@@ -25,7 +25,7 @@ Public Function InitializeProgram()
     'Config IO Port
     Set IOPortCom = New IOPort
     
-    UseEmulator = True
+    UseEmulator = False
     If UseEmulator = True Then frmPortEmulator.Show
 End Function
 
