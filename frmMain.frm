@@ -21,7 +21,7 @@ Begin VB.Form frmMain
       Caption         =   "Mensajes del Sistema"
       Height          =   1815
       Left            =   6120
-      TabIndex        =   17
+      TabIndex        =   16
       Top             =   5280
       Width           =   5655
       Begin VB.Label lblAMS 
@@ -39,7 +39,7 @@ Begin VB.Form frmMain
          ForeColor       =   &H000000FF&
          Height          =   735
          Left            =   840
-         TabIndex        =   18
+         TabIndex        =   17
          Top             =   360
          Visible         =   0   'False
          Width           =   3975
@@ -93,7 +93,7 @@ Begin VB.Form frmMain
          Top             =   240
          Width           =   1455
       End
-      Begin VB.CommandButton Command3 
+      Begin VB.CommandButton btnChangeModel 
          BackColor       =   &H00FFFFFF&
          Caption         =   "Cambio Modelo"
          BeginProperty Font 
@@ -140,7 +140,30 @@ Begin VB.Form frmMain
       TabIndex        =   1
       Top             =   1560
       Width           =   5775
+      Begin VB.TextBox txtModel 
+         Alignment       =   2  'Center
+         BackColor       =   &H00FFFFFF&
+         BeginProperty Font 
+            Name            =   "MS Sans Serif"
+            Size            =   12
+            Charset         =   0
+            Weight          =   700
+            Underline       =   0   'False
+            Italic          =   0   'False
+            Strikethrough   =   0   'False
+         EndProperty
+         ForeColor       =   &H00000000&
+         Height          =   420
+         Left            =   2400
+         Locked          =   -1  'True
+         TabIndex        =   18
+         TabStop         =   0   'False
+         ToolTipText     =   "Numero de Seria de la parte, este es escaneado por el escaner manual"
+         Top             =   1080
+         Width           =   3135
+      End
       Begin VB.TextBox txtTypeVar 
+         Alignment       =   2  'Center
          BeginProperty Font 
             Name            =   "MS Sans Serif"
             Size            =   12
@@ -153,25 +176,9 @@ Begin VB.Form frmMain
          Height          =   495
          Left            =   2400
          MaxLength       =   4
-         TabIndex        =   16
+         TabIndex        =   15
          Text            =   "0000"
          Top             =   1680
-         Width           =   3135
-      End
-      Begin VB.ComboBox cboxParts 
-         BeginProperty Font 
-            Name            =   "MS Sans Serif"
-            Size            =   12
-            Charset         =   0
-            Weight          =   700
-            Underline       =   0   'False
-            Italic          =   0   'False
-            Strikethrough   =   0   'False
-         EndProperty
-         Height          =   420
-         Left            =   2400
-         TabIndex        =   14
-         Top             =   1080
          Width           =   3135
       End
       Begin VB.TextBox txtcounter 
@@ -254,13 +261,13 @@ Begin VB.Form frmMain
          ForeColor       =   &H00FFFFFF&
          Height          =   375
          Left            =   120
-         TabIndex        =   15
+         TabIndex        =   14
          Top             =   1800
          Width           =   2055
       End
       Begin VB.Label Label1 
          BackColor       =   &H00C0C0C0&
-         Caption         =   "Numero de Parte"
+         Caption         =   "Modelo"
          BeginProperty Font 
             Name            =   "MS Sans Serif"
             Size            =   12
@@ -366,6 +373,10 @@ Option Explicit
 'Global Variables
 '==========================
 
+Private Sub btnChangeModel_Click()
+    frmChangeModel.Show
+End Sub
+
 Private Sub btnUtils_Click()
     frmUtilities.Show
 End Sub
@@ -381,9 +392,10 @@ Private Sub Form_Initialize()
     InitializeProgram
     ConfigureControls
     OpenPorts
+
+    machine.TypeNumber = frmChangeModel.cboxParts.List(frmChangeModel.cboxParts.ListIndex)
+    machine.typeVar = frmMain.txtTypeVar.text
     
-    LoadPartNumbers cboxParts
-    cboxParts.ListIndex = 0
     StartStateMachine
 End Sub
 

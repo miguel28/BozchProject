@@ -116,7 +116,7 @@ Public Function SendPartProcessed()
     parser.SetAttribute "Field14_HW", machine.Field14_HW
     parser.SetAttribute "Field15_Qspec", machine.Field15_Qspec
     parser.SetAttribute "Field17_DMC", machine.Field17_DMC  ''' LEEER DEL SCANNER
-    parser.SetAttribute "Field18_ReferenceNo", machine.Field18_ReferenceNo
+    parser.SetAttribute "Field18_ReferenceNo", machine.Field18_RefNo
     parser.SetAttribute "ccsFazitstring", machine.ccsFazitstring
 
     frmMain.sockMES.SendData parser.Code
@@ -139,6 +139,40 @@ Public Function ReadPartProcessed() As Boolean
         ReadPartProcessed = True
     Else
         ReadPartProcessed = False
+    End If
+    
+End Function
+
+Public Function SendPLCChangeOver(model As String)
+    Dim parser As XMLParser
+    Set parser = New XMLParser
+    parser.Load "xmls\plcChangeOverStarted_request.xml"
+    
+    SetHeader parser
+
+    parser.SetAttribute "typeNo", model
+    parser.SetAttribute "typeVar", machine.typeVar
+    
+    frmMain.sockMES.SendData parser.Code
+End Function
+
+Public Function ReadPLCChangeOver() As Boolean
+    Dim parser As XMLParser
+    Set parser = New XMLParser
+    
+    parser.Code = machine.SocketData
+    machine.SocketAvailable = False
+    
+    Dim returnCode As Integer
+    Dim retcode As String
+    
+    retcode = parser.GetAttribute("returnCode")
+    returnCode = Int(retcode)
+    
+    If returnCode = 0 Then
+        ReadPLCChangeOver = True
+    Else
+        ReadPLCChangeOver = False
     End If
     
 End Function

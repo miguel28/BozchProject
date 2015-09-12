@@ -51,12 +51,21 @@ Public Function UpdateGUI()
     frmMain.txtSN.text = machine.SerialNumber
     frmMain.txtcounter.text = Str(machine.GoodParts)
     frmMain.txtbadunits.text = Str(machine.BadParts)
-    machine.TypeNumber = frmMain.cboxParts.SelText
+    
+    frmMain.txtModel.text = machine.TypeNumber
     
     If machine.SocketConnected = True Then
         frmMain.lblAMS.Visible = False
     Else
         frmMain.lblAMS.Visible = True
+    End If
+    
+    If StepNumber < 3 Then
+        frmMain.btnUtils.Enabled = True
+        frmMain.btnChangeModel.Enabled = True
+    Else
+        frmMain.btnUtils.Enabled = False
+        frmMain.btnChangeModel.Enabled = False
     End If
     
 End Function
@@ -73,12 +82,12 @@ Public Function UpdateStateMachine()
             End If
         Case 1
             ' Checks that the Operator has selected the correct Information
-            If frmMain.cboxParts.ListIndex < 0 Or Len(frmMain.txtTypeVar.text) <> 4 Then
-                frmMain.txtOperador.text = "Seleccione Numero de Parte"
-            Else
-                machine.TypeNumber = frmMain.cboxParts.SelText
+            If Len(machine.TypeNumber) > 0 Then
                 machine.typeVar = frmMain.txtTypeVar.text
                 StepNumber = 2
+            Else
+                frmMain.txtOperador.text = "Seleccione Numero de Parte"
+                machine.SerialNumber = ""
             End If
         Case 2
             frmMain.txtOperador.text = "Escanee Numero de Serie"
@@ -99,12 +108,12 @@ Public Function UpdateStateMachine()
                 
             End If
         Case 3
-            frmMain.txtOperador.text = "Enviando Respuesta a Sistema MES"
+            frmMain.txtOperador.text = "Enviando PartReceived a Sistema MES"
             SendPartReceive
             StepNumber = 4
             
         Case 4
-            frmMain.txtOperador.text = "Esperando Respuesta de MES"
+            frmMain.txtOperador.text = "Esperando Respuesta PartReceived de MES"
             If machine.SocketAvailable Then
                 If ReadPartReceive = True Then
                     StepNumber = 5
@@ -121,7 +130,7 @@ Public Function UpdateStateMachine()
             SendPartProcessingStart
             StepNumber = 6
         Case 6
-            frmMain.txtOperador.text = "Esperando Respuesta de MES"
+            frmMain.txtOperador.text = "Esperando Respuesta de informacion de etiqueta de MES"
             If machine.SocketAvailable Then
                 If ReadPartProcessingStart = True Then
                     StepNumber = 7
@@ -153,10 +162,15 @@ Public Function UpdateStateMachine()
                     '    StepNumber = 0
                     'End If
                     '====================================
-                    If InStr(1, machine.DMC, machine.SerialNumber) >= 0 Then
+                    Dim Index As Integer
+                    Index = InStr(1, machine.DMC, machine.SerialNumber)
+                    If Index >= 1 Then
                         StepNumber = 9
                     Else
                         frmMain.txtOperador.text = "Error: Los DMC no corresponden"
+                        machine.BadParts = machine.BadParts + 1
+                        UpdateGUI
+                        DoEvents
                         Sleep 3000
                         StepNumber = 0
                     End If
@@ -168,23 +182,29 @@ Public Function UpdateStateMachine()
                 
             End If
         Case 9
-            frmMain.txtOperador.text = "Requiriendo informacion de etiqueta de MES"
+            frmMain.txtOperador.text = "Envaindo PartProcessed a MES"
             SendPartProcessed
             StepNumber = 10
         Case 10
-            frmMain.txtOperador.text = "Esperando Respuesta de MES"
+            frmMain.txtOperador.text = "Esperando Respuesta PartProcessed de MES"
             If machine.SocketAvailable Then
-                If ReadPartReceive = True Then
+                If ReadPartProcessed = True Then
                     frmMain.txtOperador.text = "Pieza Processada Correctamente"
+                    machine.GoodParts = machine.GoodParts + 1
+                    UpdateGUI
                     DoEvents
                     Sleep 3000
+                    
                     StepNumber = 0 ' TErmina ciclo empieza e nuevo
                 Else
                     frmMain.txtOperador.text = "Error: Los DMC no corresponden"
+                    machine.BadParts = machine.BadParts + 1
+                    UpdateGUI
                     DoEvents
                     Sleep 3000
                     StepNumber = 0
                 End If
+                
             End If
         
     End Select

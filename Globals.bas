@@ -135,3 +135,26 @@ Public Function CreateRandomEventNumber() As String
     result = Str(Int((Rnd * 1000) + 1))
     CreateRandomEventNumber = Replace(result, " ", "")
 End Function
+
+Public Function AppendLog(msg As String)
+    Dim iFileNo As Integer
+    iFileNo = FreeFile
+
+    Dim filename As String
+    filename = "Log_" & Format$(Now, "yyyy-mm-dd") & ".txt"
+    Dim path As String
+    path = App.path & "\logs\" & filename
+    
+    If Dir(path) <> "" Then
+        Open path For Output As #iFileNo
+        Do While Not EOF(iFileNo)
+            Write #iFileNo, msg & vbCrLf
+        Loop
+    Else
+        Open path For Append As #iFileNo
+        Do While Not EOF(iFileNo)
+            Write #iFileNo, msg & " , Date: " & Format$(Now, "yyyy-mm-dd") & vbCrLf
+        Loop
+    End If
+
+End Function
