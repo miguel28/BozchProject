@@ -48,32 +48,33 @@ End Function
 
 Public Function GetAttribute(attrName As String) As String
     Dim SearchTerm As String
-    Dim Index1 As Integer
-    Dim Index2 As Integer
+    Dim Index1 As Long
+    Dim Index2 As Long
     Dim subString As String
     Dim result As String
     
     SearchTerm = attrName & "="""
-    Index1 = InStr(Code, SearchTerm, vbBinaryCompare)
+    Index1 = InStr(1, Code, SearchTerm, vbBinaryCompare)
+    Index1 = Index1 + Len(SearchTerm)
     
     subString = Mid(Code, Index1, Len(Code) - Index1)
-    Index2 = InStr(subString, """", vbBinaryCompare)
+    Index2 = InStr(1, subString, """", vbBinaryCompare)
     
-    result = Mid(Code, Index1, Index2 - Index1)
+    result = Mid(Code, Index1, Index2 - 1)
     GetAttribute = result
 End Function
 
 Public Function GetValue(valName As String) As String
     Dim SearchTerm As String
     Dim SearchTerm2 As String
-    Dim Index1 As Integer
-    Dim Index2 As Integer
+    Dim Index1 As Long
+    Dim Index2 As Long
     Dim result As String
     
     SearchTerm = "<" & valName & ">"
     SearchTerm2 = "</" & valName & ">"
-    Index1 = InStr(Code, SearchTerm, vbBinaryCompare)
-    Index2 = InStr(Code, SearchTerm2, vbBinaryCompare)
+    Index1 = InStr(1, Code, SearchTerm, vbBinaryCompare)
+    Index2 = InStr(1, Code, SearchTerm2, vbBinaryCompare)
     
     result = Mid(Code, Index1, Index2 - Index1)
     GetValue = result

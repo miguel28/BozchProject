@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="ISO-8859-1"?>
 <root>
-  <header eventId="34460" version="1.0" eventName="partProcessingStarted" eventSwitch="-1" timeStamp="2014-05-05T11:12:56.3187547+05:30">
+  <header eventId="%eventId%" version="1.0" eventName="partProcessingStarted" eventSwitch="-1" timeStamp="2014-05-05T11:12:56.3187547+05:30">
     <location lineNo="%lineNo%" statNo="%statNo%" statIdx="%statIdx%" fuNo="%fuNo%" workPos="%workPos%" toolPos="%toolPos%" processNo="%processNo%" processName="%processName%" application="%application%" />
   </header>
   <event>

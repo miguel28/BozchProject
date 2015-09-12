@@ -1,7 +1,7 @@
 ﻿<?xml version="1.0" encoding="utf-8" standalone="yes"?>
 <root>
-  <header eventId="34460" eventName="partProcessingStarted" version="1.0" eventSwitch="-1" timeStamp="2014-05-05T11:12:56.3187547+05:30">
-    <location lineNo="229" statNo="9807" statIdx="1" fuNo="1" workPos="2" toolPos="1" application="PLC" processName="Labeling" processNo="404" />
+  <header eventId="%eventId%" eventName="partProcessingStarted" version="1.0" eventSwitch="-1" timeStamp="2014-05-05T11:12:56.3187547+05:30">
+    <location lineNo="%lineNo%" statNo="%statNo%" statIdx="%statIdx%" fuNo="%fuNo%" workPos="%workPos%" toolPos="%toolPos%" processNo="%processNo%" processName="%processName%" application="%application%" />
   </header>
   <event>
     <result returnCode="0">

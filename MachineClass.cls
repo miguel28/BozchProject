@@ -13,12 +13,28 @@ Attribute VB_PredeclaredId = False
 Attribute VB_Exposed = False
 Option Explicit
 '==========================
+'MES Telegram Headers
+'==========================
+Public lineNo As String
+Public statNo As String
+Public statIdx As String
+Public fuNo As String
+Public workPos As String
+Public toolPos As String
+Public processNo As String
+Public processName As String
+Public application As String
+
+'==========================
 'Application Variables
 '==========================
 Public ScannerAvailable As Boolean
-Public SeriaNumber As String
+Public SocketAvailable As Boolean
+Public SocketData As String
+
+Public SerialNumber As String
 Public TypeNumber As String
-Public TypeVar As String
+Public typeVar As String
 Public GoodParts As Integer
 Public BadParts As Integer
 
@@ -40,9 +56,9 @@ Attribute comScanner.VB_VarHelpID = -1
 '==========================
 Private Sub Class_Initialize()
     'Initialize Variables
-    SeriaNumber = ""
+    SerialNumber = ""
     TypeNumber = ""
-    TypeVar = ""
+    typeVar = ""
     GoodParts = 0
     BadParts = 0
     
@@ -81,10 +97,10 @@ Public Function ReadFromScanner() As Boolean
                 vbCritical + vbOKOnly, "Error de lectura de archivo"
                 
         ReadFromScanner = False             ' Return error
-        SeriaNumber = ""
+        SerialNumber = ""
     Else
         ReadFromScanner = True
-        SeriaNumber = data
+        SerialNumber = data
     End If
     
 End Function

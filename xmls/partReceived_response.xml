@@ -1,7 +1,7 @@
 ﻿<?xml version="1.0" encoding="utf-8" standalone="yes"?>
 <root>
-  <header eventId="610" eventName="partReceived" version="2.1" eventSwitch="-1" contentType="3">
-    <location lineNo="229" statNo="9807" statIdx="1" fuNo="1" workPos="2" toolPos="1" application="PLC" processName="Labeling" processNo="404" />
+  <header eventId="%eventId%" eventName="partReceived" version="2.1" eventSwitch="-1" contentType="3">
+    <location lineNo="%lineNo%" statNo="%statNo%" statIdx="%statIdx%" fuNo="%fuNo%" workPos="%workPos%" toolPos="%toolPos%" processNo="%processNo%" processName="%processName%" application="%application%" />
   </header>
   <event>
     <result returnCode="0">
@@ -10,12 +10,12 @@
   </event>
   <body>
     <items>
-      <item name="NextProcessNo" value="404" dataType="3" />
-      <item name="TypeNo" value="1234567890" dataType="8" />
-      <item name="TypeVar" value="0000" dataType="8" />
-      <item name="Charge" value="0" dataType="8" />
-      <item name="WorkingCode" value="0" dataType="3" />
-      <item name="PartForStation" value="true" dataType="11" />
+      <item name="NextProcessNo" value="%NextProcessNo%" dataType="3" />
+      <item name="TypeNo" value="%TypeNo%" dataType="8" />
+      <item name="TypeVar" value="%TypeVar%" dataType="8" />
+      <item name="Charge" value="%Charge%" dataType="8" />
+      <item name="WorkingCode" value="%WorkingCode%" dataType="3" />
+      <item name="PartForStation" value="%PartForStation%" dataType="11" />
     </items>
   </body>
 </root>

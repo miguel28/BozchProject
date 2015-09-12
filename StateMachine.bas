@@ -48,7 +48,7 @@ Private Sub TimerProc(ByVal hwnd As Long, _
 End Sub
 
 Public Function UpdateGUI()
-    frmMain.txtSN.text = machine.SeriaNumber
+    frmMain.txtSN.text = machine.SerialNumber
     frmMain.txtcounter.text = Str(machine.GoodParts)
     frmMain.txtbadunits.text = Str(machine.BadParts)
 End Function
@@ -61,7 +61,7 @@ Public Function UpdateStateMachine()
                 frmMain.txtOperador.text = "Seleccione Numero de Parte"
             Else
                 machine.TypeNumber = frmMain.cboxParts.SelText
-                machine.TypeVar = frmMain.txtTypeVar.text
+                machine.typeVar = frmMain.txtTypeVar.text
                 StepNumber = 2
             End If
         Case 2
@@ -75,20 +75,33 @@ Public Function UpdateStateMachine()
                 
                 result = machine.ReadFromScanner ' Read The scanner Data
                 If result = True Then
-                    StepNumber = 2
+                    StepNumber = 3
                     UpdateGUI
                 Else
                     StepNumber = 1
                 End If
                 
             End If
-        Case 2
-            frmMain.txtOperador.text = "Enviando Respuesta a Sistema MES"
-
         Case 3
-            frmMain.txtOperador.text = "Parte Aceptada"
+            frmMain.txtOperador.text = "Enviando Respuesta a Sistema MES"
+            SendPartReceive
+            StepNumber = 4
             
         Case 4
-
+            frmMain.txtOperador.text = "Esperando Respuesta de MES"
+            If machine.SocketAvailable Then
+                If ReadPartReceive = True Then
+                    StepNumber = 5
+                Else
+                    frmMain.txtOperador.text = "Error: esta pieza no debe ser procesda en esta estacion"
+                    Sleep 3000
+                    StepNumber = 1
+                End If
+            End If
+            
+        Case 5
+            frmMain.txtOperador.text = "Requiriendo informacion de etiqueta de MES"
+            
+            
     End Select
 End Function

@@ -10,6 +10,14 @@ Begin VB.Form frmMain
    LinkTopic       =   "Form1"
    ScaleHeight     =   7935
    ScaleWidth      =   11925
+   Begin VB.CommandButton Command2 
+      Caption         =   "Command2"
+      Height          =   495
+      Left            =   9480
+      TabIndex        =   21
+      Top             =   480
+      Width           =   1695
+   End
    Begin VB.Timer tmrUpdateStateMachine 
       Interval        =   150
       Left            =   600
@@ -47,9 +55,9 @@ Begin VB.Form frmMain
    Begin VB.CommandButton Command1 
       Caption         =   "Command1"
       Height          =   495
-      Left            =   8280
+      Left            =   9360
       TabIndex        =   15
-      Top             =   7320
+      Top             =   1080
       Width           =   1815
    End
    Begin VB.Frame Frame2 
@@ -364,6 +372,8 @@ Begin VB.Form frmMain
       _ExtentX        =   741
       _ExtentY        =   741
       _Version        =   393216
+      RemoteHost      =   "127.0.0.1"
+      RemotePort      =   3550
    End
 End
 Attribute VB_Name = "frmMain"
@@ -381,17 +391,22 @@ Private Sub Command1_Click()
     Dim xml As XMLParser
     Set xml = New XMLParser
     xml.Load ("xmls\partReceived_request.xml")
-    MsgBox xml.Code
-    xml.SetAttribute "identifier", "50505"
-    MsgBox xml.Code
 
+    xml.SetAttribute "identifier", "50505"
+    xml.SetAttribute "eventId", CreateRandomEventNumber
+    
+    sockMES.SendData xml.Code
 End Sub
+
 
 '==========================
 'Controls Events
 '==========================
 Private Sub Form_Initialize()
     InitializeProgram
+    ConfigureControls
+    OpenPorts
+    
     LoadPartNumbers cboxParts
     StartStateMachine
 End Sub
@@ -429,13 +444,29 @@ End Sub
 '==========================
 Private Sub ConfigureControls()
     'Load Win Socket Configuration of config files
-    ConfigureSocket sockMES, "MESSocket.ini"
+    ConfigureSocket sockMES, "config\MESSocket.ini"
 End Sub
 
 Private Sub OpenPorts()
     'Open Win Socket Configuration of config files
     sockMES.Connect
+    Do Until sockMES.State = sckConnected
+    DoEvents
+    Loop
 End Sub
+
+Private Sub sockMES_DataArrival(ByVal bytesTotal As Long)
+On Error GoTo Error
+    Dim data As String
+    sockMES.GetData data, vbString
+    
+    machine.SocketData = data
+    machine.SocketAvailable = True
+    Exit Sub
+Error:
+    
+End Sub
+
 
 Private Sub tmrUpdateStateMachine_Timer()
     UpdateStateMachine

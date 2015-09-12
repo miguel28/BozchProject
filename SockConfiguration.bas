@@ -5,11 +5,11 @@ Private RemotePort As Integer
 Private RemoteHost As String
 
 Public Sub ConfigureSocket(Port As Winsock, configFile As String)
-    ReadSockConfig (configFile) ' Lee el archivo de configuracion como texto
-    ParseSockConfig             ' Convierte Los Datos Leidos en Configuracion del puerto
-    
     RemotePort = 80
     RemoteHost = "127.0.0.1"
+    
+    ReadSockConfig (configFile) ' Lee el archivo de configuracion como texto
+    ParseSockConfig             ' Convierte Los Datos Leidos en Configuracion del puerto
     
     Port.RemotePort = RemotePort
     Port.RemoteHost = RemoteHost
@@ -21,7 +21,7 @@ Private Function ReadSockConfig(configFile As String)
     Dim ConfigPath As String
     intFile = FreeFile
     
-    ExecutablePath = App.Path & "\"
+    ExecutablePath = App.path & "\"
     ConfigPath = ExecutablePath & configFile
     
     Open ConfigPath For Input As #intFile
