@@ -5,5 +5,6 @@
 ^PW498
 ^LL0189
 ^LS0
-^FT163,108^A0N,42,40^FH\^FD%numero%^FS
+^FO110, 70^ADN, 11, 7
+^BCN, 50, Y, Y, N^FD%numero%^FS
 ^PQ1,0,1,Y^XZ
