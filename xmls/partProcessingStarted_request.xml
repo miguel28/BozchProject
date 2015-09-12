@@ -7,7 +7,7 @@
     <partProcessingStarted identifier="%identifier%" />
   </event>
   <body>
-    <identifierType>%identifierType%</identifierType>
+    <identifierType>PCB-DMC</identifierType>
     <typeNo>%typeNo%</typeNo>
     <typeVar>%typeVar%</typeVar>
     <charge>

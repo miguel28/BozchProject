@@ -16,6 +16,7 @@ Module=WindowsNative; WindowsNative.bas
 Class=MachineClass; MachineClass.cls
 Class=XMLParser; XMLParser.cls
 Module=TelegramHandler; TelegramHandler.bas
+Form=frmUtilities.frm
 IconForm="frmMain"
 Startup="frmMain"
 HelpFile=""

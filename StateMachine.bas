@@ -23,7 +23,7 @@ Private StepNumber As Integer
 '==========================
 Public Function StartStateMachine()
     'Reset the State Machine to Step 0
-    StepNumber = 1
+    StepNumber = 0
     
     'To start the timer:
     'TimerHandler = SetTimer(0, 0, 200, AddressOf TimerProc)
@@ -52,10 +52,25 @@ Public Function UpdateGUI()
     frmMain.txtcounter.text = Str(machine.GoodParts)
     frmMain.txtbadunits.text = Str(machine.BadParts)
     machine.TypeNumber = frmMain.cboxParts.SelText
+    
+    If machine.SocketConnected = True Then
+        frmMain.lblAMS.Visible = False
+    Else
+        frmMain.lblAMS.Visible = True
+    End If
+    
 End Function
 
 Public Function UpdateStateMachine()
+    UpdateGUI
+    
     Select Case StepNumber
+        Case 0
+            ' Checks that the Operator has selected the correct Information
+            frmMain.txtOperador.text = "Se necesita estar Conectado a sistemas MES"
+            If machine.SocketConnected Then
+                StepNumber = 1
+            End If
         Case 1
             ' Checks that the Operator has selected the correct Information
             If frmMain.cboxParts.ListIndex < 0 Or Len(frmMain.txtTypeVar.text) <> 4 Then
@@ -67,7 +82,7 @@ Public Function UpdateStateMachine()
             End If
         Case 2
             frmMain.txtOperador.text = "Escanee Numero de Serie"
-            If machine.comScanner.GetAvailableBytes > 8 Then
+            If machine.comScanner.GetAvailableBytes >= machine.SerialNumberLength Then
                 Dim result As Boolean
                 ' Reads the data in the scanner and stores them
                 ' in SerialNumber
@@ -79,7 +94,7 @@ Public Function UpdateStateMachine()
                     StepNumber = 3
                     UpdateGUI
                 Else
-                    StepNumber = 1
+                    StepNumber = 0
                 End If
                 
             End If
@@ -97,7 +112,7 @@ Public Function UpdateStateMachine()
                     frmMain.txtOperador.text = "Error: esta pieza no debe ser procesda en esta estacion"
                     DoEvents
                     Sleep 3000
-                    StepNumber = 1
+                    StepNumber = 0
                 End If
             End If
             
@@ -113,7 +128,7 @@ Public Function UpdateStateMachine()
                 Else
                     frmMain.txtOperador.text = "Error: esta pieza no debe ser procesda en esta estacion"
                     Sleep 3000
-                    StepNumber = 1
+                    StepNumber = 0
                 End If
             End If
         Case 7
@@ -124,5 +139,53 @@ Public Function UpdateStateMachine()
             Sleep 3000
         Case 8
             frmMain.txtOperador.text = "Pegue etiqueta en el producto y Escanee el codigo de barras"
+            If machine.comScanner.GetAvailableBytes >= machine.DMCNumberLength Then
+                Dim result2 As Boolean
+                
+                result2 = machine.ReadDMC ' Read The scanner Data
+                If result2 = True Then
+                    '====================================
+                    ' If InStr(1, machine.DMC, machine.Field17_DMC) >= 0 Then
+                    '    StepNumber = 9
+                    'Else
+                    '    frmMain.txtOperador.text = "Error: Los DMC no corresponden"
+                    '    Sleep 3000
+                    '    StepNumber = 0
+                    'End If
+                    '====================================
+                    If InStr(1, machine.DMC, machine.SerialNumber) >= 0 Then
+                        StepNumber = 9
+                    Else
+                        frmMain.txtOperador.text = "Error: Los DMC no corresponden"
+                        Sleep 3000
+                        StepNumber = 0
+                    End If
+                Else
+                    frmMain.txtOperador.text = "Error: Al Leer DMC"
+                    Sleep 3000
+                    StepNumber = 0
+                End If
+                
+            End If
+        Case 9
+            frmMain.txtOperador.text = "Requiriendo informacion de etiqueta de MES"
+            SendPartProcessed
+            StepNumber = 10
+        Case 10
+            frmMain.txtOperador.text = "Esperando Respuesta de MES"
+            If machine.SocketAvailable Then
+                If ReadPartReceive = True Then
+                    frmMain.txtOperador.text = "Pieza Processada Correctamente"
+                    DoEvents
+                    Sleep 3000
+                    StepNumber = 0 ' TErmina ciclo empieza e nuevo
+                Else
+                    frmMain.txtOperador.text = "Error: Los DMC no corresponden"
+                    DoEvents
+                    Sleep 3000
+                    StepNumber = 0
+                End If
+            End If
+        
     End Select
 End Function

@@ -4,7 +4,7 @@
     <location lineNo="%lineNo%" statNo="%statNo%" statIdx="%statIdx%" fuNo="%fuNo%" workPos="%workPos%" toolPos="%toolPos%" processNo="%processNo%" processName="%processName%" application="%application%" />
   </header>
   <event>
-    <result returnCode="0">
+    <result returnCode="%returnCode%">
     </result>
     <trace />
   </event>

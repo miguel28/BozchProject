@@ -4,7 +4,7 @@
     <location lineNo="%lineNo%" statNo="%statNo%" statIdx="%statIdx%" fuNo="%fuNo%" workPos="%workPos%" toolPos="%toolPos%" processNo="%processNo%" processName="%processName%" application="%application%" />
   </header>
   <event>
-    <partProcessed identifier="1202340602" />
+    <partProcessed identifier="%identifier%" />
   </event>
   <body>
     <structs>
@@ -14,15 +14,15 @@
       <item name="Prog1.Name" value="12345678900000" dataType="8" />
       <item name="PartState" value="5" dataType="3" />
       <item name="ManufacturerNo" value="F005V01440" dataType="8" />
-      <item name="Field6_ChangeStatus" value="5012001" dataType="8" />
-      <item name="Field7_ProductionNumber" value="1234" dataType="8" />
-      <item name="Field10_AudiPartNo" value="8W0907063E" dataType="8" />
-      <item name="Field11_SW" value="215" dataType="8" />
-      <item name="Field14_HW" value="012" dataType="8" />
-      <item name="Field15_Qspec" value="06S" dataType="8" />
-      <item name="Field17_DMC" value="3#5K0035356#H012S0215#*K19RB6-90501.12.0800030240*=     " dataType="8" />
-      <item name="Field18_ReferenceNo" value="8W0907063E" dataType="8" />
-      <item name="ccsFazitstring" value="RB6-90501.12.0800030240" dataType="8" />
+      <item name="Field6_ChangeStatus" value="%Field6_ChangeStatus%" dataType="8" />
+      <item name="Field7_ProductionNumber" value="%Field7_ProductionNumber%" dataType="8" />
+      <item name="Field10_AudiPartNo" value="%Field10_AudiPartNo%" dataType="8" />
+      <item name="Field11_SW" value="%Field11_SW%" dataType="8" />
+      <item name="Field14_HW" value="%Field14_HW%" dataType="8" />
+      <item name="Field15_Qspec" value="%Field15_Qspec%" dataType="8" />
+      <item name="Field17_DMC" value="%Field17_DMC%" dataType="8" />
+      <item name="Field18_ReferenceNo" value="%Field18_ReferenceNo%" dataType="8" />
+      <item name="ccsFazitstring" value="%ccsFazitstring%" dataType="8" />
     </items>
   </body>
 </root>

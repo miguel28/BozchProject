@@ -3,21 +3,14 @@ Object = "{248DD890-BB45-11CF-9ABC-0080C7E7B78D}#1.0#0"; "MSWINSCK.OCX"
 Begin VB.Form frmMain 
    BackColor       =   &H00C0C0C0&
    Caption         =   "BOSCH Project"
-   ClientHeight    =   7935
+   ClientHeight    =   7185
    ClientLeft      =   330
    ClientTop       =   450
    ClientWidth     =   11925
    LinkTopic       =   "Form1"
-   ScaleHeight     =   7935
+   ScaleHeight     =   7185
    ScaleWidth      =   11925
-   Begin VB.CommandButton Command2 
-      Caption         =   "Command2"
-      Height          =   495
-      Left            =   9480
-      TabIndex        =   21
-      Top             =   480
-      Width           =   1695
-   End
+   StartUpPosition =   2  'CenterScreen
    Begin VB.Timer tmrUpdateStateMachine 
       Interval        =   150
       Left            =   600
@@ -28,7 +21,7 @@ Begin VB.Form frmMain
       Caption         =   "Mensajes del Sistema"
       Height          =   1815
       Left            =   6120
-      TabIndex        =   19
+      TabIndex        =   17
       Top             =   5280
       Width           =   5655
       Begin VB.Label lblAMS 
@@ -46,26 +39,18 @@ Begin VB.Form frmMain
          ForeColor       =   &H000000FF&
          Height          =   735
          Left            =   840
-         TabIndex        =   20
+         TabIndex        =   18
          Top             =   360
          Visible         =   0   'False
          Width           =   3975
       End
-   End
-   Begin VB.CommandButton Command1 
-      Caption         =   "Command1"
-      Height          =   495
-      Left            =   9360
-      TabIndex        =   15
-      Top             =   1080
-      Width           =   1815
    End
    Begin VB.Frame Frame2 
       BackColor       =   &H00C0C0C0&
       Caption         =   "Opciones"
       Height          =   1815
       Left            =   120
-      TabIndex        =   11
+      TabIndex        =   10
       Top             =   5280
       Width           =   5775
       Begin VB.CommandButton cmdexit 
@@ -84,7 +69,7 @@ Begin VB.Form frmMain
          Left            =   4080
          Picture         =   "frmMain.frx":0000
          Style           =   1  'Graphical
-         TabIndex        =   14
+         TabIndex        =   13
          Top             =   240
          Width           =   1455
       End
@@ -104,7 +89,7 @@ Begin VB.Form frmMain
          Left            =   360
          Picture         =   "frmMain.frx":08A8
          Style           =   1  'Graphical
-         TabIndex        =   13
+         TabIndex        =   12
          Top             =   240
          Width           =   1455
       End
@@ -124,7 +109,7 @@ Begin VB.Form frmMain
          Left            =   2160
          Picture         =   "frmMain.frx":13F3
          Style           =   1  'Graphical
-         TabIndex        =   12
+         TabIndex        =   11
          Top             =   240
          Width           =   1455
       End
@@ -144,7 +129,7 @@ Begin VB.Form frmMain
       Height          =   3495
       Left            =   6120
       MultiLine       =   -1  'True
-      TabIndex        =   10
+      TabIndex        =   9
       Top             =   1680
       Width           =   5655
    End
@@ -152,7 +137,7 @@ Begin VB.Form frmMain
       BackColor       =   &H00C0C0C0&
       Height          =   3615
       Left            =   120
-      TabIndex        =   2
+      TabIndex        =   1
       Top             =   1560
       Width           =   5775
       Begin VB.TextBox txtTypeVar 
@@ -168,7 +153,7 @@ Begin VB.Form frmMain
          Height          =   495
          Left            =   2400
          MaxLength       =   4
-         TabIndex        =   18
+         TabIndex        =   16
          Text            =   "0000"
          Top             =   1680
          Width           =   3135
@@ -185,7 +170,7 @@ Begin VB.Form frmMain
          EndProperty
          Height          =   420
          Left            =   2400
-         TabIndex        =   16
+         TabIndex        =   14
          Top             =   1080
          Width           =   3135
       End
@@ -205,7 +190,7 @@ Begin VB.Form frmMain
          Height          =   465
          Left            =   2400
          Locked          =   -1  'True
-         TabIndex        =   5
+         TabIndex        =   4
          TabStop         =   0   'False
          Text            =   "0"
          Top             =   2280
@@ -227,7 +212,7 @@ Begin VB.Form frmMain
          Height          =   420
          Left            =   2400
          Locked          =   -1  'True
-         TabIndex        =   4
+         TabIndex        =   3
          TabStop         =   0   'False
          ToolTipText     =   "Numero de Seria de la parte, este es escaneado por el escaner manual"
          Top             =   480
@@ -249,7 +234,7 @@ Begin VB.Form frmMain
          Height          =   480
          Left            =   2400
          Locked          =   -1  'True
-         TabIndex        =   3
+         TabIndex        =   2
          Text            =   "0"
          Top             =   2880
          Width           =   3135
@@ -269,7 +254,7 @@ Begin VB.Form frmMain
          ForeColor       =   &H00FFFFFF&
          Height          =   375
          Left            =   120
-         TabIndex        =   17
+         TabIndex        =   15
          Top             =   1800
          Width           =   2055
       End
@@ -288,7 +273,7 @@ Begin VB.Form frmMain
          ForeColor       =   &H00FFFFFF&
          Height          =   375
          Left            =   120
-         TabIndex        =   9
+         TabIndex        =   8
          Top             =   1200
          Width           =   2175
       End
@@ -307,7 +292,7 @@ Begin VB.Form frmMain
          ForeColor       =   &H00FFFFFF&
          Height          =   375
          Left            =   120
-         TabIndex        =   8
+         TabIndex        =   7
          Top             =   2400
          Width           =   2175
       End
@@ -326,7 +311,7 @@ Begin VB.Form frmMain
          ForeColor       =   &H00FFFFFF&
          Height          =   375
          Left            =   120
-         TabIndex        =   7
+         TabIndex        =   6
          Top             =   600
          Width           =   1815
       End
@@ -345,7 +330,7 @@ Begin VB.Form frmMain
          ForeColor       =   &H00FFFFFF&
          Height          =   375
          Left            =   120
-         TabIndex        =   6
+         TabIndex        =   5
          Top             =   3000
          Width           =   1935
       End
@@ -356,18 +341,10 @@ Begin VB.Form frmMain
       Picture         =   "frmMain.frx":1CB6
       ScaleHeight     =   1395
       ScaleWidth      =   5715
-      TabIndex        =   1
+      TabIndex        =   0
       TabStop         =   0   'False
       Top             =   0
       Width           =   5775
-   End
-   Begin VB.CommandButton btnMantenaince 
-      Caption         =   "Mantenimiento"
-      Height          =   495
-      Left            =   10200
-      TabIndex        =   0
-      Top             =   7320
-      Width           =   1575
    End
    Begin MSWinsockLib.Winsock sockMES 
       Left            =   120
@@ -389,18 +366,13 @@ Option Explicit
 'Global Variables
 '==========================
 
-
-Private Sub Command1_Click()
-    Dim xml As XMLParser
-    Set xml = New XMLParser
-    xml.Load ("xmls\partReceived_request.xml")
-
-    xml.SetAttribute "identifier", "50505"
-    xml.SetAttribute "eventId", CreateRandomEventNumber
-    
-    sockMES.SendData xml.Code
+Private Sub btnUtils_Click()
+    frmUtilities.Show
 End Sub
 
+Private Sub cmdexit_Click()
+    End
+End Sub
 
 '==========================
 'Controls Events
@@ -420,27 +392,19 @@ Private Sub Form_Resize()
     If Me.Width < 10000 Then Me.Width = 10000
     'If Me.height < 10000 Then Me.height = 7000
     
-    btnMantenaince.Left = Me.Width - 2500
-    btnMantenaince.Top = Me.height - 1000
     picBosch.Left = (Me.Width / 2) - (picBosch.Width) / 2
-    
+    Frame1.Left = (Me.Width / 2) - (Frame1.Width) - 100
+    txtOperador.Left = (Me.Width / 2) + 100
+    Frame2.Left = (Me.Width / 2) - (Frame2.Width) - 100
+    Frame3.Left = (Me.Width / 2) + 100
 End Sub
 
 Private Sub Form_Unload(Cancel As Integer)
-    Unload Me
-    StopStateMachine
-    Unload frmPortEmulator
-    End
-End Sub
-
-Private Sub btnMantenaince_Click()
-    Dim pass As String
-    pass = InputBox("Escriba la contrasena de Mantenimiento")
-    If pass = "pass" Then
-        StopStateMachine
-        Me.Hide
-        frmMantenaince.Show
-    End If
+    Cancel = 1
+    'Unload Me
+    'StopStateMachine
+    'Unload frmPortEmulator
+    'End
 End Sub
 
 '==========================
@@ -457,18 +421,21 @@ Private Sub OpenPorts()
     
     Dim attempts As Integer
     Do Until sockMES.State = sckConnected
-    DoEvents
-    Sleep 100
-    
-    attempts = attempts + 1
-    If attempts > 50 Then
-         MsgBox "Error No se Pudo encontrar sistema MES: " & sockMES.RemoteHost & _
-         " Port: " & Str(sockMES.RemotePort), vbCritical _
-            + vbOKOnly, "Error connexion Sistema MES"
-            
-         End
-    End If
+        DoEvents
+        Sleep 100
+        
+        attempts = attempts + 1
+        If attempts > 20 Then   ' wait 2 seconds
+             MsgBox "Error No se Pudo encontrar sistema MES: " & sockMES.RemoteHost & _
+             " Port: " & Str(sockMES.RemotePort), vbCritical _
+                + vbOKOnly, "Error connexion Sistema MES"
+                
+             machine.SocketConnected = False
+             Exit Sub
+        End If
     Loop
+    
+    machine.SocketConnected = True
 End Sub
 
 Private Sub sockMES_DataArrival(ByVal bytesTotal As Long)
@@ -482,7 +449,6 @@ On Error GoTo Error
 Error:
     
 End Sub
-
 
 Private Sub tmrUpdateStateMachine_Timer()
     UpdateStateMachine

@@ -35,12 +35,14 @@ Public Field17_DMC As String
 Public Field18_RefNo As String
 Public ccsFazitstring As String
 
+Public DMC As String
 '==========================
 'Application Variables
 '==========================
 Public ScannerAvailable As Boolean
 Public SocketAvailable As Boolean
 Public SocketData As String
+Public SocketConnected As Boolean
 
 Public SerialNumber As String
 Public TypeNumber As String
@@ -51,7 +53,8 @@ Public BadParts As Integer
 '==========================
 'Application Constants
 '==========================
-Private Const SerialNumberLength As Integer = 9 'This is the lenght spected to read from scanner
+Public SerialNumberLength As Integer 'This is the lenght spected to read from scanner
+Public DMCNumberLength As Integer    'This is the lenght spected to read from scanner
 
 '==========================
 'Definitions Of Ports
@@ -66,6 +69,9 @@ Attribute comScanner.VB_VarHelpID = -1
 '==========================
 Private Sub Class_Initialize()
     'Initialize Variables
+    SerialNumberLength = 9
+    DMCNumberLength = 9
+    
     SerialNumber = ""
     TypeNumber = ""
     typeVar = ""
@@ -78,8 +84,6 @@ Private Sub Class_Initialize()
 
     'Load Serial COM Configuration of config files
     comZebra.ConfigurePort "config\ZebraPort.ini"
-
-    
     comScanner.ConfigurePort "config\ScannerPort.ini"
 
     If UseEmulator = False Then
@@ -90,7 +94,6 @@ Private Sub Class_Initialize()
     
     
 End Sub
-
 
 Public Function ReadFromScanner() As Boolean
     Dim data As String
@@ -127,6 +130,41 @@ Public Function ReadFromScanner() As Boolean
     
 End Function
 
+Public Function ReadDMC() As Boolean
+    Dim data As String
+    Dim i As Integer
+    
+    ScannerAvailable = False
+    i = 0
+    
+    If UseEmulator = True Then
+        data = frmPortEmulator.txtScanner.text ' Read Emulated Data
+    Else
+        Do While machine.comScanner.Port.InBufferCount = DMCNumberLength And i < 25
+            Sleep 10
+            i = i + 1
+        Loop
+        data = machine.comScanner.Port.Input        ' Read From real Scanner Serial Port
+    End If
+    
+    data = Replace(data, vbCrLf, "")
+    
+    ' This if check if the for got the correct number od bytes from the scanner
+    If Len(data) < SerialNumberLength Then ' If the Received Data is diferent of spected
+        MsgBox "Error al leer los datos del escaner se esperaban " & _
+                Str(DMCNumberLength) & " pero se recibieron " & Str(Len(data)) & _
+                ". Por favor vuelva a leer el archivo.", _
+                vbCritical + vbOKOnly, "Error de lectura de archivo"
+                
+        ReadDMC = False             ' Return error
+        DMC = ""
+    Else
+        ReadDMC = True
+        DMC = data
+    End If
+    
+End Function
+
 Public Function PrintZebra()
     Dim maker As ZPLMaker
     Set maker = New ZPLMaker
@@ -134,6 +172,19 @@ Public Function PrintZebra()
     maker.Load "zpls\testimprimr.txt"
     maker.SetAttribute "numero", SerialNumber
     
+    If UseEmulator = True Then
+        frmPortEmulator.txtZPL.text = frmPortEmulator.txtZPL.text & maker.Code & vbCrLf
+    Else
+        machine.comZebra.Port.Output = maker.Code
+    End If
+End Function
+
+Public Function PrintTestZebra()
+    Dim maker As ZPLMaker
+    Set maker = New ZPLMaker
+    
+    maker.Load "zpls\testimprimr.txt"
+    maker.SetAttribute "numero", "PRUEBA"
 
     If UseEmulator = True Then
         frmPortEmulator.txtZPL.text = frmPortEmulator.txtZPL.text & maker.Code & vbCrLf
