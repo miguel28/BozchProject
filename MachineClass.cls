@@ -25,6 +25,9 @@ Public processNo As String
 Public processName As String
 Public application As String
 
+'==========================
+' Label Information From MES
+'==========================
 Public ccsDutLabelPara1 As String
 Public ccsDutLabelPara2 As String
 Public ccsDutLabelPara3  As String
@@ -32,11 +35,21 @@ Public ccsDutLabelPara4  As String
 Public ccsDutLabelPara5 As String
 Public ccsFazitstring  As String
 
-Public Field17_DMC As String
-
+Public Field17_DMC As String ' This variable is to verify the DMC
 Public LabelType As String
-
 Public DMC As String
+
+'==========================
+' Label Information Processed
+'==========================
+Public ManufacturerNo As String
+Public PlantNo As String
+Public ManufacturerCode As String
+Public DMCversion As String
+Public NumberPCB As String
+Public DMCfixedUnitNo As String
+
+
 '==========================
 'Application Variables
 '==========================
@@ -170,9 +183,41 @@ Public Function PrintZebra()
     Dim maker As ZPLMaker
     Set maker = New ZPLMaker
     
-    maker.Load "zpls\testimprimr.txt"
-    maker.SetAttribute "numero", SerialNumber
+    ' Select with ZPL are going to load accordinf with the label type
+    If Int(LabelType) = 1 Then
+        maker.Load "zpls\MLB_Label.txt"
+        
+        Dim field10 As String
+        Dim field14 As String
+        Dim field18 As String
+        
+        field10 = Mid(ccsDutLabelPara2, 0, 3) & " " & Mid(ccsDutLabelPara2, 3, 3) _
+                         & " " & Mid(ccsDutLabelPara2, 6, 3) & " " & Mid(ccsDutLabelPara2, 9, 2)
+        field14 = Mid(ccsDutLabelPara1, 3, 2)
+        field18 = Mid(ccsDutLabelPara5, 0, 3) & " " & Mid(ccsDutLabelPara5, 3, 3) _
+                         & " " & Mid(ccsDutLabelPara5, 6, 3) & " " & Mid(ccsDutLabelPara5, 9, 2)
+        
+        DMC = "3#" & TypeNumber & "#" & _
+            "H" & field14 & "S" & ccsDutLabelPara3 & "#*" & DMCfixedUnitNo & _
+            ccsFazitstring & "*="
     
+        maker.SetAttribute "field6", ccsDutLabelPara1
+        maker.SetAttribute "field10", field10
+        maker.SetAttribute "field11", ccsDutLabelPara3
+        maker.SetAttribute "field14", field14
+        maker.SetAttribute "field15", ccsDutLabelPara4
+        maker.SetAttribute "field17", DMC
+        maker.SetAttribute "field18", field18
+        maker.SetAttribute "fazit", ccsFazitstring
+        
+    ElseIf Int(LabelType) = 2 Then
+        maker.Load "zpls\MQB_Label.txt"
+    Else
+        maker.Load "zpls\FGEN2_Label.txt"
+        maker.SetAttribute "numero", SerialNumber ' dummy
+    End If
+    
+    ' Send To the COM Port
     If UseEmulator = True Then
         frmPortEmulator.txtZPL.text = frmPortEmulator.txtZPL.text & maker.Code & vbCrLf
     Else
@@ -184,7 +229,7 @@ Public Function PrintTestZebra()
     Dim maker As ZPLMaker
     Set maker = New ZPLMaker
     
-    maker.Load "zpls\testimprimr.txt"
+    maker.Load "zpls\boschetiqueta.prn"
     maker.SetAttribute "numero", "PRUEBA"
 
     If UseEmulator = True Then

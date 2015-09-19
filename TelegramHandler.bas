@@ -130,6 +130,14 @@ Public Function ReadPLCChangeOver() As Boolean
     
     machine.LabelType = parser.GetAttribute("name=""LabelType"" value")
     
+    machine.ManufacturerNo = parser.GetAttribute("name=""ManufacturerNo"" value")
+    machine.PlantNo = parser.GetAttribute("name=""PlantNo"" value")
+    machine.ManufacturerCode = parser.GetAttribute("name=""ManufacturerCode"" value")
+    machine.DMCversion = parser.GetAttribute("name=""DMCversion"" value")
+    machine.NumberPCB = parser.GetAttribute("name=""NumberPCB"" value")
+    machine.DMCfixedUnitNo = parser.GetAttribute("name=""DMCfixedUnitNo"" value")
+    
+    
     If returnCode = 0 Then
         ReadPLCChangeOver = True
     Else
