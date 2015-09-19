@@ -1,0 +1,22 @@
+﻿<?xml version="1.0" encoding="utf-8" standalone="yes"?>
+<root>
+  <header eventId="161" eventName="plcChangeOverStarted" version="1.0" eventSwitch="-1" timeStamp="2015-09-17T07:16:46.2440000" contentType="3">
+    <location lineNo="229" statNo="9801" statIdx="1" fuNo="1" workPos="2" toolPos="1" application="IPC" processName="Labeling" processNo="210" />
+  </header>
+  <event>
+    <result returnCode="0">
+    </result>
+    <trace />
+  </event>
+  <body>
+    <items>
+      <item name="LabelType" value="1" dataType="3" />
+      <item name="ManufacturerNo" value="F005V01440" dataType="8" />
+      <item name="PlantNo" value="864" dataType="8" />
+      <item name="ManufacturerCode" value="" dataType="8" />
+      <item name="DMCversion" value="" dataType="8" />
+      <item name="NumberPCB" value="" dataType="8" />
+      <item name="DMCfixedUnitNo" value="" dataType="8" />
+    </items>
+  </body>
+</root>

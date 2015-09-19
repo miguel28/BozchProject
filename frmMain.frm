@@ -392,9 +392,6 @@ Private Sub Form_Initialize()
     InitializeProgram
     ConfigureControls
     OpenPorts
-
-    machine.TypeNumber = frmChangeModel.cboxParts.List(frmChangeModel.cboxParts.ListIndex)
-    machine.typeVar = frmMain.txtTypeVar.text
     
     StartStateMachine
 End Sub

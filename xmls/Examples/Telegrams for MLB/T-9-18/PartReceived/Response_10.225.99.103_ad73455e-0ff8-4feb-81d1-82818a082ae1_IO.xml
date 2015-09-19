@@ -1,0 +1,24 @@
+﻿<?xml version="1.0" encoding="utf-8" standalone="yes"?>
+<root>
+  <header eventId="40" eventName="partReceived" version="V2.x" eventSwitch="-1" timeStamp="2015-09-17T12:26:37.7623213-06:00" contentType="3">
+    <location lineNo="229" statNo="9801" statIdx="1" fuNo="1" workPos="2" toolPos="1" application="IPC" processName="Labeling" processNo="210" />
+  </header>
+  <event>
+    <result returnCode="0">
+    </result>
+    <trace />
+  </event>
+  <body>
+    <items>
+      <item name="ccsDutLabelPara1" value="5012001" dataType="8" />
+      <item name="ccsDutLabelPara2" value="8W0907063E" dataType="8" />
+      <item name="ccsDutLabelPara3" value="215" dataType="8" />
+      <item name="ccsDutLabelPara4" value="06S" dataType="8" />
+      <item name="ccsDutLabelPara5" value="8W0907063E" dataType="8" />
+      <item name="ccsFazitstring" value="RB6-90501.12.0800030240" dataType="8" />
+    </items>
+    <structs>
+      <workPart partForStation="true" changeOver="false" workingCode="0" typeNo="F005V01440" typeVar="0001" identifier="47102029051790011508186002JE1198" batch="" passThrough="true" nextProcessNo="210" spcTests="0" />
+    </structs>
+  </body>
+</root>

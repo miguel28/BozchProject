@@ -1,0 +1,12 @@
+﻿<?xml version="1.0" encoding="utf-8" standalone="yes"?>
+<root>
+  <header eventId="42" eventName="partProcessed" version="V2.x" eventSwitch="-1" timeStamp="2015-09-17T12:26:51.3813832-06:00" contentType="3">
+    <location lineNo="229" statNo="9801" statIdx="1" fuNo="1" workPos="2" toolPos="1" application="IPC" processName="Labeling" processNo="210" />
+  </header>
+  <event>
+    <result returnCode="0">
+    </result>
+    <trace />
+  </event>
+  <body />
+</root>

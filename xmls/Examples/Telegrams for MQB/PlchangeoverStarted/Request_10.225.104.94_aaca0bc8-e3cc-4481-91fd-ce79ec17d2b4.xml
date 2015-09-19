@@ -1,0 +1,10 @@
+﻿<?xml version="1.0" encoding="UTF-8"?>
+<root>
+  <header eventId="161" eventName="plcChangeOverStarted" version="1.0" timeStamp="2015-09-17T07:16:46.244" contentType="3">
+    <location lineNo="229" statNo="9801" statIdx="1" fuNo="1" workPos="2" toolPos="1" processName="Labeling" processNo="210" application="IPC" />
+  </header>
+  <event>
+    <plcChangeOverStarted typeNo="1234567890" typeVar="0001" typeVersion="" />
+  </event>
+  <body />
+</root>

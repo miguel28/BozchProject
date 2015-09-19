@@ -1,0 +1,10 @@
+﻿<?xml version="1.0" encoding="UTF-8"?>
+<root>
+  <header version="V2.x" eventId="40" eventName="partReceived" contentType="3" timeStamp="2015-09-17T12:26:37.7623213-06:00">
+    <location lineNo="229" statNo="9801" statIdx="1" fuNo="1" workPos="2" toolPos="1" processNo="210" processName="Labeling" application="IPC" />
+  </header>
+  <event>
+    <partReceived identifier="47102029051790011508186002JE1198" typeNo="F005V01440" typeVar="0001" />
+  </event>
+  <body />
+</root>

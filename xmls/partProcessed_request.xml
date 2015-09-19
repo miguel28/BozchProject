@@ -1,28 +1,26 @@
 ﻿<?xml version="1.0" encoding="UTF-8"?>
 <root>
-  <header version="2.1" eventId="%eventId%" eventName="partProcessed" contentType="3" >
-    <location lineNo="%lineNo%" statNo="%statNo%" statIdx="%statIdx%" fuNo="%fuNo%" workPos="%workPos%" toolPos="%toolPos%" processNo="%processNo%" processName="%processName%" application="%application%" />
+  <header version="V2.x" eventId="%eventId%" eventName="partProcessed" contentType="3" timeStamp="2015-09-17T12:26:51.3813832-06:00">
+    <location lineNo="%lineNo%" statNo="%statNo%" statIdx="%statIdx%" fuNo="%fuNo%" workPos="%workPos%" toolPos="%toolPos%" processNo="%processNo%" processName="Labeling%processName%" application="%application%" />
   </header>
   <event>
     <partProcessed identifier="%identifier%" />
   </event>
   <body>
     <structs>
-      <resHead result="1" typeNo="%typeNo%" typeVar="%typeVar%" workingCode="0" nioBits="0" machineID="Labeling" />
+      <resHead result="1" typeNo="%typeNo%" typeVar="%typeVar%" workingCode="0" nioBits="0" />
     </structs>
     <items>
-      <item name="Prog1.Name" value="12345678900000" dataType="8" />
-      <item name="PartState" value="5" dataType="3" />
-      <item name="ManufacturerNo" value="F005V01440" dataType="8" />
-      <item name="Field6_ChangeStatus" value="%Field6_ChangeStatus%" dataType="8" />
-      <item name="Field7_ProductionNumber" value="%Field7_ProductionNumber%" dataType="8" />
-      <item name="Field10_AudiPartNo" value="%Field10_AudiPartNo%" dataType="8" />
-      <item name="Field11_SW" value="%Field11_SW%" dataType="8" />
-      <item name="Field14_HW" value="%Field14_HW%" dataType="8" />
-      <item name="Field15_Qspec" value="%Field15_Qspec%" dataType="8" />
-      <item name="Field17_DMC" value="%Field17_DMC%" dataType="8" />
-      <item name="Field18_ReferenceNo" value="%Field18_ReferenceNo%" dataType="8" />
-      <item name="ccsFazitstring" value="%ccsFazitstring%" dataType="8" />
+        <item name="ccsDutLabelPara1" value="%ccsDutLabelPara1%" dataType="8" />
+        <item name="ccsDutLabelPara2" value="%ccsDutLabelPara2%" dataType="8" />
+        <item name="ccsDutLabelPara3" value="%ccsDutLabelPara3%" dataType="8" />
+        <item name="ccsDutLabelPara4" value="%ccsDutLabelPara4%" dataType="8" />
+        <item name="ccsDutLabelPara5" value="%ccsDutLabelPara5%" dataType="8" />
+        <item name="ccsFazitstring" value="%ccsFazitstring%" dataType="8" />
+        <item name="LabelType" value="%LabelType%" dataType="3" />
+        <item name="ManufacturerNo" value="%ManufacturerNo%" dataType="8" />
+        <item name="ParState" value="5" dataType="3" />
+        <item name="Field17_DMC" value=%Field17_DMC%" dataType="8" />
     </items>
   </body>
 </root>
