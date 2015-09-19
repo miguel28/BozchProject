@@ -175,6 +175,7 @@ Begin VB.Form frmMain
          EndProperty
          Height          =   495
          Left            =   2400
+         Locked          =   -1  'True
          MaxLength       =   4
          TabIndex        =   15
          Text            =   "0000"

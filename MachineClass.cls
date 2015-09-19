@@ -25,15 +25,16 @@ Public processNo As String
 Public processName As String
 Public application As String
 
-Public Field6_ChangeStatus As String
-Public Field7_ProductionNumber As String
-Public Field10_AudiPartNo As String
-Public Field11_SW As String
-Public Field14_HW As String
-Public Field15_Qspec As String
+Public ccsDutLabelPara1 As String
+Public ccsDutLabelPara2 As String
+Public ccsDutLabelPara3  As String
+Public ccsDutLabelPara4  As String
+Public ccsDutLabelPara5 As String
+Public ccsFazitstring  As String
+
 Public Field17_DMC As String
-Public Field18_RefNo As String
-Public ccsFazitstring As String
+
+Public LabelType As String
 
 Public DMC As String
 '==========================
@@ -46,7 +47,7 @@ Public SocketConnected As Boolean
 
 Public SerialNumber As String
 Public TypeNumber As String
-Public typeVar As String
+Public typevar As String
 Public GoodParts As Integer
 Public BadParts As Integer
 
@@ -74,7 +75,7 @@ Private Sub Class_Initialize()
     
     SerialNumber = ""
     TypeNumber = ""
-    typeVar = ""
+    typevar = ""
     GoodParts = 0
     BadParts = 0
     
@@ -83,9 +84,9 @@ Private Sub Class_Initialize()
     Set comScanner = New ADESerialPort
 
     'Load Serial COM Configuration of config files
-    comZebra.ConfigurePort "config\ZebraPort.ini"
     comScanner.ConfigurePort "config\ScannerPort.ini"
-
+    comZebra.ConfigurePort "config\ZebraPort.ini"
+    
     If UseEmulator = False Then
         comZebra.Port.PortOpen = True
         comScanner.Port.PortOpen = True
@@ -192,16 +193,3 @@ Public Function PrintTestZebra()
         machine.comZebra.Port.Output = maker.Code
     End If
 End Function
-
-'==========================
-'Port Receiver Events
-'==========================
-
-Private Sub comZebra_OnComm()
-'
-End Sub
-
-Private Sub comScanner_OnComm()
-    ScannerAvailable = True
-End Sub
-

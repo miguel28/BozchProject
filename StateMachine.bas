@@ -53,6 +53,7 @@ Public Function UpdateGUI()
     frmMain.txtbadunits.text = Str(machine.BadParts)
     
     frmMain.txtModel.text = machine.TypeNumber
+    frmMain.txtTypeVar.text = machine.typevar
     
     If machine.SocketConnected = True Then
         frmMain.lblAMS.Visible = False
@@ -83,7 +84,6 @@ Public Function UpdateStateMachine()
         Case 1
             ' Checks that the Operator has selected the correct Information
             If Len(machine.TypeNumber) > 0 Then
-                machine.typeVar = frmMain.txtTypeVar.text
                 StepNumber = 2
             Else
                 frmMain.txtOperador.text = "Seleccione Numero de Parte"
@@ -116,7 +116,7 @@ Public Function UpdateStateMachine()
             frmMain.txtOperador.text = "Esperando Respuesta PartReceived de MES"
             If machine.SocketAvailable Then
                 If ReadPartReceive = True Then
-                    StepNumber = 5
+                    StepNumber = 7
                 Else
                     frmMain.txtOperador.text = "Error: esta pieza no debe ser procesda en esta estacion"
                     DoEvents
@@ -125,21 +125,6 @@ Public Function UpdateStateMachine()
                 End If
             End If
             
-        Case 5
-            frmMain.txtOperador.text = "Requiriendo informacion de etiqueta de MES"
-            SendPartProcessingStart
-            StepNumber = 6
-        Case 6
-            frmMain.txtOperador.text = "Esperando Respuesta de informacion de etiqueta de MES"
-            If machine.SocketAvailable Then
-                If ReadPartProcessingStart = True Then
-                    StepNumber = 7
-                Else
-                    frmMain.txtOperador.text = "Error: esta pieza no debe ser procesda en esta estacion"
-                    Sleep 3000
-                    StepNumber = 0
-                End If
-            End If
         Case 7
             frmMain.txtOperador.text = "Imprimiendo Etiqueta"
             machine.PrintZebra
@@ -195,7 +180,7 @@ Public Function UpdateStateMachine()
                     DoEvents
                     Sleep 3000
                     
-                    StepNumber = 0 ' TErmina ciclo empieza e nuevo
+                    StepNumber = 0 ' Termina ciclo empieza e nuevo
                 Else
                     frmMain.txtOperador.text = "Error: Los DMC no corresponden"
                     machine.BadParts = machine.BadParts + 1

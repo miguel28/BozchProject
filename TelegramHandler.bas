@@ -25,7 +25,7 @@ Public Function SendPartReceive()
     
     parser.SetAttribute "identifier", machine.SerialNumber
     parser.SetAttribute "typeNo", machine.TypeNumber
-    parser.SetAttribute "typeVar", machine.typeVar
+    parser.SetAttribute "typeVar", machine.typevar
     
     frmMain.sockMES.SendData parser.Code
 End Function
@@ -43,56 +43,17 @@ Public Function ReadPartReceive() As Boolean
     retcode = parser.GetAttribute("returnCode")
     returnCode = Int(retcode)
     
+    machine.ccsDutLabelPara1 = parser.GetAttribute("name=""ccsDutLabelPara1"" value")
+    machine.ccsDutLabelPara2 = parser.GetAttribute("name=""ccsDutLabelPara2"" value")
+    machine.ccsDutLabelPara3 = parser.GetAttribute("name=""ccsDutLabelPara3"" value")
+    machine.ccsDutLabelPara4 = parser.GetAttribute("name=""ccsDutLabelPara4"" value")
+    machine.ccsDutLabelPara5 = parser.GetAttribute("name=""ccsDutLabelPara5"" value")
+    machine.ccsFazitstring = parser.GetAttribute("name=""ccsFazitstring"" value")
+    
     If returnCode = 0 Then
         ReadPartReceive = True
     Else
         ReadPartReceive = False
-    End If
-    
-End Function
-
-Public Function SendPartProcessingStart()
-    Dim parser As XMLParser
-    Set parser = New XMLParser
-    parser.Load "xmls\partProcessingStarted_request.xml"
-    
-    SetHeader parser
-    
-    parser.SetAttribute "identifier", machine.SerialNumber
-    parser.SetAttribute "identifierType", machine.SerialNumber
-    parser.SetAttribute "typeNo", machine.TypeNumber
-    parser.SetAttribute "typeVar", machine.typeVar
-    
-    frmMain.sockMES.SendData parser.Code
-End Function
-
-Public Function ReadPartProcessingStart() As Boolean
-    Dim parser As XMLParser
-    Set parser = New XMLParser
-    
-    parser.Code = machine.SocketData
-    machine.SocketAvailable = False
-    
-    Dim returnCode As Integer
-    Dim retcode As String
-    
-    retcode = parser.GetAttribute("returnCode")
-    returnCode = Int(retcode)
-    
-    If returnCode = 0 Then
-        ReadPartProcessingStart = True
-        
-        machine.Field6_ChangeStatus = parser.GetAttribute("Field6_ChangeStatus"" value")
-        machine.Field7_ProductionNumber = parser.GetAttribute("Field7_ProductionNumber"" value")
-        machine.Field10_AudiPartNo = parser.GetAttribute("Field10_AudiPartNo"" value")
-        machine.Field11_SW = parser.GetAttribute("Field11_SW"" value")
-        machine.Field14_HW = parser.GetAttribute("Field14_HW"" value")
-        machine.Field15_Qspec = parser.GetAttribute("Field15_Qspec"" value")
-        machine.Field17_DMC = parser.GetAttribute("Field17_DMC"" value")
-        machine.Field18_RefNo = parser.GetAttribute("Field18_RefNo"" value")
-        machine.ccsFazitstring = parser.GetAttribute("ccsFazitstring"" value")
-    Else
-        ReadPartProcessingStart = False
     End If
     
 End Function
@@ -107,17 +68,15 @@ Public Function SendPartProcessed()
     
     parser.SetAttribute "identifier", machine.SerialNumber
     parser.SetAttribute "typeNo", machine.TypeNumber
-    parser.SetAttribute "typeVar", machine.typeVar
+    parser.SetAttribute "typeVar", machine.typevar
     
-    parser.SetAttribute "Field6_ChangeStatus", machine.Field6_ChangeStatus
-    parser.SetAttribute "Field7_ProductionNumber", machine.Field7_ProductionNumber
-    parser.SetAttribute "Field10_AudiPartNo", machine.Field10_AudiPartNo
-    parser.SetAttribute "Field11_SW", machine.Field11_SW
-    parser.SetAttribute "Field14_HW", machine.Field14_HW
-    parser.SetAttribute "Field15_Qspec", machine.Field15_Qspec
-    parser.SetAttribute "Field17_DMC", machine.Field17_DMC  ''' LEEER DEL SCANNER
-    parser.SetAttribute "Field18_ReferenceNo", machine.Field18_RefNo
+    parser.SetAttribute "ccsDutLabelPara1", machine.ccsDutLabelPara1
+    parser.SetAttribute "ccsDutLabelPara2", machine.ccsDutLabelPara2
+    parser.SetAttribute "ccsDutLabelPara3", machine.ccsDutLabelPara3
+    parser.SetAttribute "ccsDutLabelPara4", machine.ccsDutLabelPara4
+    parser.SetAttribute "ccsDutLabelPara5", machine.ccsDutLabelPara5
     parser.SetAttribute "ccsFazitstring", machine.ccsFazitstring
+    parser.SetAttribute "Field17_DMC", machine.Field17_DMC  ''' LEEER DEL SCANNER
 
     frmMain.sockMES.SendData parser.Code
 End Function
@@ -143,7 +102,7 @@ Public Function ReadPartProcessed() As Boolean
     
 End Function
 
-Public Function SendPLCChangeOver(model As String)
+Public Function SendPLCChangeOver(model As String, typevar As String)
     Dim parser As XMLParser
     Set parser = New XMLParser
     parser.Load "xmls\plcChangeOverStarted_request.xml"
@@ -151,7 +110,7 @@ Public Function SendPLCChangeOver(model As String)
     SetHeader parser
 
     parser.SetAttribute "typeNo", model
-    parser.SetAttribute "typeVar", machine.typeVar
+    parser.SetAttribute "typeVar", typevar
     
     frmMain.sockMES.SendData parser.Code
 End Function
@@ -168,6 +127,8 @@ Public Function ReadPLCChangeOver() As Boolean
     
     retcode = parser.GetAttribute("returnCode")
     returnCode = Int(retcode)
+    
+    machine.LabelType = parser.GetAttribute("name=""LabelType"" value")
     
     If returnCode = 0 Then
         ReadPLCChangeOver = True

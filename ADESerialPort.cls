@@ -15,7 +15,6 @@ Attribute VB_Ext_KEY = "SavedWithClassBuilder6" ,"Yes"
 Attribute VB_Ext_KEY = "Top_Level" ,"Yes"
 Option Explicit
 Public WithEvents Port As MSComm
-Attribute Port.VB_VarHelpID = -1
 
 Private FileConfig As String
 Private PortNumber As Integer
