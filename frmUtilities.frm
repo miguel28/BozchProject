@@ -57,9 +57,8 @@ Begin VB.Form frmUtilities
       Top             =   1800
       Width           =   1695
    End
-   Begin VB.CommandButton btnTestPort 
-      Caption         =   "Test Port"
-      Enabled         =   0   'False
+   Begin VB.CommandButton btnReconnect 
+      Caption         =   "Reconectar a MES"
       BeginProperty Font 
          Name            =   "MS Sans Serif"
          Size            =   12
@@ -115,16 +114,38 @@ Attribute VB_GlobalNameSpace = False
 Attribute VB_Creatable = False
 Attribute VB_PredeclaredId = True
 Attribute VB_Exposed = False
+'===========================================================
+' Force explicit variable declaration.
+'===========================================================
+Option Explicit
+
 Private Sub btnExit_Click()
-    Unload Me
+    Unload Me ' Closes this window
+End Sub
+
+Private Sub btnReconnect_Click()
+    frmMain.OpenPorts ' Reopen the socket to connecto to MES
 End Sub
 
 Private Sub btnResetCounter_Click()
+    ' Reset al the counters
     machine.GoodParts = 0
     machine.BadParts = 0
 End Sub
 
 Private Sub btnTestPrint_Click()
+    ' Sends A Test Label
     machine.PrintTestZebra
     Sleep 3000
+End Sub
+
+Private Sub Form_Load()
+    ' Check the availability of the reconnect button
+    ' by checking if the systes is already connected to
+    ' the MES system.
+    If machine.SocketConnected = False Then
+        btnReconnect.Enabled = True
+    Else
+        btnReconnect.Enabled = False
+    End If
 End Sub

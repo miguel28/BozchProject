@@ -1,7 +1,15 @@
 Attribute VB_Name = "WindowsNative"
-'==========================
+'========================================================
 'Windows Native Functions
-'==========================
+'========================================================
+' This module contains Native Call to thw Windows Kernel
+'========================================================
+
+'========================================
+' Force explicit variable declaration.
+'========================================
+Option Explicit
+
 'Creates a timer with a handler ID
 Public Declare Function SetTimer Lib "user32" _
     (ByVal hwnd As Long, _

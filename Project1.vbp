@@ -10,7 +10,6 @@ Class=IOPort; IOPortsEmu.cls
 Form=frmPortEmulator.frm
 Module=BitOperations; BitOperations.bas
 Module=Globals; Globals.bas
-Form=frmMantenaince.frm
 Module=StateMachine; StateMachine.bas
 Module=WindowsNative; WindowsNative.bas
 Class=MachineClass; MachineClass.cls

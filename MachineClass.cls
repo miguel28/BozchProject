@@ -95,7 +95,9 @@ Private Sub Class_Initialize()
     'Create Ports
     Set comZebra = New ADESerialPort
     Set comScanner = New ADESerialPort
+End Sub
 
+Public Function OpenSerialPorts()
     'Load Serial COM Configuration of config files
     comScanner.ConfigurePort "config\ScannerPort.ini"
     comZebra.ConfigurePort "config\ZebraPort.ini"
@@ -104,10 +106,7 @@ Private Sub Class_Initialize()
         comZebra.Port.PortOpen = True
         comScanner.Port.PortOpen = True
     End If
-    
-    
-    
-End Sub
+End Function
 
 Public Function ReadFromScanner() As Boolean
     Dim data As String
@@ -212,6 +211,13 @@ Public Function PrintZebra()
         
     ElseIf Int(LabelType) = 2 Then
         maker.Load "zpls\MQB_Label.txt"
+        
+        maker.SetAttribute "field1", ccsDutLabelPara1
+        maker.SetAttribute "field2", ccsDutLabelPara2
+        maker.SetAttribute "field3", ccsDutLabelPara3
+        maker.SetAttribute "field4", ccsDutLabelPara4
+        maker.SetAttribute "field5", ccsDutLabelPara5
+        maker.SetAttribute "fazit", ccsFazitstring
     Else
         maker.Load "zpls\FGEN2_Label.txt"
         maker.SetAttribute "numero", SerialNumber ' dummy

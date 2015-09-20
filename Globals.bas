@@ -1,5 +1,9 @@
 Attribute VB_Name = "Globals"
+'========================================
+' Force explicit variable declaration.
+'========================================
 Option Explicit
+
 '==========================
 'Global Variables
 '==========================
@@ -7,28 +11,26 @@ Public machine As MachineClass
 Public IOPortCom As IOPort
 Public UseEmulator As Boolean
 
-
-'==========================
-'Application Variables
-'==========================
-Public PartNumber As String
-
 '==========================
 'Global Functions
 '==========================
 Public Function InitializeProgram()
+    UseEmulator = True
+    
     'Create a Instance of the machine
     Set machine = New MachineClass
-    
+    machine.OpenSerialPorts
     LoadTelegramHeader
     
     'Config IO Port
     Set IOPortCom = New IOPort
-    
-    UseEmulator = False
+  
     If UseEmulator = True Then frmPortEmulator.Show
 End Function
 
+'====================================================
+' Reads a Simple File as Text
+'====================================================
 Public Function ReadTextFile(file As String)
     On Error GoTo Error
 
@@ -70,6 +72,9 @@ Public Function LoadPartNumbers(cbox As ComboBox)
     Next i
 End Function
 
+'====================================================
+' Loads the telegram headers
+'====================================================
 Public Function LoadTelegramHeader()
     Dim Lines As String
     Lines = ReadTextFile("config\TelegramHeader.ini")
@@ -129,6 +134,9 @@ Public Function LoadTelegramHeader()
     Next i
 End Function
 
+'====================================================
+' Creates random numbers for the telegrams events ID
+'====================================================
 Public Function CreateRandomEventNumber() As String
     Randomize
     Dim result As String
@@ -136,6 +144,9 @@ Public Function CreateRandomEventNumber() As String
     CreateRandomEventNumber = Replace(result, " ", "")
 End Function
 
+'====================================================
+' Manages the Logs
+'====================================================
 Public Function AppendLog(msg As String)
     Dim iFileNo As Integer
     iFileNo = FreeFile
@@ -145,16 +156,15 @@ Public Function AppendLog(msg As String)
     Dim path As String
     path = App.path & "\logs\" & filename
     
-    If Dir(path) <> "" Then
+    Dim result As String
+    result = Dir$(path)
+    
+    If Dir$(path) = "" Then              ' Creates the file if not exist
         Open path For Output As #iFileNo
-        Do While Not EOF(iFileNo)
-            Write #iFileNo, msg & vbCrLf
-        Loop
+        Print #iFileNo, msg & " , Date: " & Format$(Now, "yyyy-mm-dd")
     Else
-        Open path For Append As #iFileNo
-        Do While Not EOF(iFileNo)
-            Write #iFileNo, msg & " , Date: " & Format$(Now, "yyyy-mm-dd") & vbCrLf
-        Loop
+        Open path For Append As #iFileNo ' If the file exists then append the log
+        Print #iFileNo, msg & " , Date: " & Format$(Now, "yyyy-mm-dd")
     End If
-
+    Close #iFileNo
 End Function

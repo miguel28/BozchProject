@@ -1,4 +1,17 @@
 Attribute VB_Name = "BitOperations"
+'==============================================
+' Bitwise Operands
+'==============================================
+' Because the Visual Basic 6 is too old as
+' a fuck. Need the the bitwise implementations
+' This is for use only of the IO Emulator.
+'==============================================
+
+'========================================
+' Force explicit variable declaration.
+'========================================
+Option Explicit
+
 Private OnBits(0 To 31) As Long
 
 Public Function LShiftLong(ByVal value As Long, _

@@ -1,5 +1,13 @@
 Attribute VB_Name = "SockConfiguration"
+'==============================================
+' This Modules Loads the Socket Configurations
+'==============================================
+
+'========================================
+' Force explicit variable declaration.
+'========================================
 Option Explicit
+
 Private FileConfig As String
 Private RemotePort As Integer
 Private RemoteHost As String

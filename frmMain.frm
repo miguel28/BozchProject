@@ -369,36 +369,25 @@ Attribute VB_GlobalNameSpace = False
 Attribute VB_Creatable = False
 Attribute VB_PredeclaredId = True
 Attribute VB_Exposed = False
+'========================================
+' Force explicit variable declaration.
+'========================================
 Option Explicit
-'==========================
-'Global Variables
-'==========================
-
-Private Sub btnChangeModel_Click()
-    frmChangeModel.Show
-End Sub
-
-Private Sub btnUtils_Click()
-    frmUtilities.Show
-End Sub
-
-Private Sub cmdexit_Click()
-    End
-End Sub
 
 '==========================
 'Controls Events
 '==========================
 Private Sub Form_Initialize()
     InitializeProgram
-    ConfigureControls
     OpenPorts
-    
     StartStateMachine
 End Sub
 
+'====================================================
+' This is is to get a responsibe desing of the form
+'====================================================
 Private Sub Form_Resize()
-    ' Diseno responsivo de la forma
+    
     If Me.Width < 10000 Then Me.Width = 10000
     'If Me.height < 10000 Then Me.height = 7000
     
@@ -410,22 +399,46 @@ Private Sub Form_Resize()
 End Sub
 
 Private Sub Form_Unload(Cancel As Integer)
-    Cancel = 1
-    'Unload Me
-    'StopStateMachine
-    'Unload frmPortEmulator
-    'End
+    Cancel = 1 ' Prevents un load the form.
+End Sub
+
+'====================================================
+' Opens the change model Form
+'====================================================
+Private Sub btnChangeModel_Click()
+    If machine.SocketConnected = True Then
+        frmChangeModel.Show
+    Else
+        MsgBox "No se puede hacer cambio de Modelo. Por favor Verifique Conexion a MES", vbCritical _
+            + vbOKOnly, "Error Conexion a Systema MES"
+    End If
+End Sub
+
+'====================================================
+' Openes the Utilities Form
+'====================================================
+Private Sub btnUtils_Click()
+    frmUtilities.Show
+End Sub
+
+'====================================================
+' End the application
+'====================================================
+Private Sub cmdexit_Click()
+    End
+End Sub
+
+Private Sub tmrUpdateStateMachine_Timer()
+    UpdateStateMachine
 End Sub
 
 '==========================
 'Local Defined Functions.
 '==========================
-Private Sub ConfigureControls()
+Public Sub OpenPorts()
     'Load Win Socket Configuration of config files
     ConfigureSocket sockMES, "config\MESSocket.ini"
-End Sub
-
-Private Sub OpenPorts()
+    
     'Open Win Socket Configuration of config files
     sockMES.Connect
     
@@ -448,6 +461,9 @@ Private Sub OpenPorts()
     machine.SocketConnected = True
 End Sub
 
+'==========================
+' Socket Interaction Events
+'==========================
 Private Sub sockMES_DataArrival(ByVal bytesTotal As Long)
 On Error GoTo Error
     Dim data As String
@@ -460,6 +476,10 @@ Error:
     
 End Sub
 
-Private Sub tmrUpdateStateMachine_Timer()
-    UpdateStateMachine
+Private Sub sockMES_Error(ByVal Number As Integer, Description As String, ByVal Scode As Long, ByVal Source As String, ByVal HelpFile As String, ByVal HelpContext As Long, CancelDisplay As Boolean)
+    machine.SocketConnected = False
+    StopStateMachine
+    StartStateMachine
 End Sub
+
+

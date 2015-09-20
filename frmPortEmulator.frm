@@ -260,6 +260,20 @@ Attribute VB_GlobalNameSpace = False
 Attribute VB_Creatable = False
 Attribute VB_PredeclaredId = True
 Attribute VB_Exposed = False
+'===========================================================
+' frmPort Emulator Form
+'===========================================================
+' This Form is not used in the final implementation.
+' This is only for Test Propuses.
+' This is for test all the the application without the real
+' hardware.
+' This form Emulates a Serial Scanner and the Serial Zebra
+' printer. Also emulates IO (in this project wasn't used)
+'===========================================================
+' Force explicit variable declaration.
+'===========================================================
+Option Explicit
+
 Private Sub btnInputs_Click(Index As Integer)
     Dim activated As Boolean
     activated = IOPortCom.GetInput(Index)
@@ -292,6 +306,5 @@ Private Sub tmrUpdateIO_Timer()
         Else
             btnInputs(i).BackColor = &H8000000F
         End If
-        
     Next i
 End Sub

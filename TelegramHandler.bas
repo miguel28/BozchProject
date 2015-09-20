@@ -1,5 +1,11 @@
 Attribute VB_Name = "TelegramHandler"
+'========================================
+' Force explicit variable declaration.
+'========================================
+Option Explicit
+
 Public Function SetHeader(parser As XMLParser)
+    ' Header Of the Telegram is common to all telegrams
     parser.SetAttribute "lineNo", machine.lineNo
     parser.SetAttribute "statNo", machine.statNo
     parser.SetAttribute "statIdx", machine.statIdx
@@ -12,9 +18,7 @@ Public Function SetHeader(parser As XMLParser)
     
     ' Random Event
     parser.SetAttribute "eventId", CreateRandomEventNumber
-    
 End Function
-
 
 Public Function SendPartReceive()
     Dim parser As XMLParser
@@ -136,7 +140,6 @@ Public Function ReadPLCChangeOver() As Boolean
     machine.DMCversion = parser.GetAttribute("name=""DMCversion"" value")
     machine.NumberPCB = parser.GetAttribute("name=""NumberPCB"" value")
     machine.DMCfixedUnitNo = parser.GetAttribute("name=""DMCfixedUnitNo"" value")
-    
     
     If returnCode = 0 Then
         ReadPLCChangeOver = True
